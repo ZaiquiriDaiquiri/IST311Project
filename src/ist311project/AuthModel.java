@@ -1,9 +1,9 @@
 
 package ist311project;
 
-public class Model {
+public class AuthModel {
     
-    Model() {
+    AuthModel() {
         
     }
     

@@ -5,11 +5,11 @@ public class IST311Project {
 
     public static void main(String[] args) {
         
-        Model model = new Model();
-        View view = new View(model);
-        Controller controller = new Controller(model, view);
+        MainModel mModel = new MainModel();
+        MainView mView = new MainView(mModel);
+        MainController mController = new MainController(mModel, mView);
         
-        view.setVisible(true);
+        mView.setVisible(true);
         
     }
     

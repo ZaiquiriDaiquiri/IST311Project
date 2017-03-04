@@ -1,18 +1,19 @@
 
 package ist311project;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class View extends JFrame{
+public class MainView extends JFrame{
     
-    private Model model;
-    private final JPanel mPanel = new JPanel();
+    private MainModel mModel;
     
-    View(Model model) {
+    MainView(MainModel model) {
         
-        this.setContentPane(mPanel);
-        this.setSize(800, 600);
+        this.mModel = model;
+        
+        this.setSize(700, 400);
         this.setTitle("IST 311 Program");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
         
