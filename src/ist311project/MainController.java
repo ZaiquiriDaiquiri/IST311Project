@@ -54,6 +54,31 @@ public class MainController {
                     } else {
                         authView.getAuthenticateLabel().setText("Invalid Credentials");
                     }
+                    
+                } else if(clickSource == navView.getNewTaskButton()) {
+                    
+                    System.out.println("Creating Task...");
+                    
+                } else if(clickSource == navView.getViewTaskButton()) {
+                    
+                    System.out.println("Displaying Tasks...");
+                    
+                } else if(clickSource == navView.getNewContactButton()) {
+                    
+                    System.out.println("Creating Contact...");
+                    
+                } else if(clickSource == navView.getViewContactButton()) {
+                    
+                    System.out.println("Display Contacts...");
+                    
+                } else if(clickSource == navView.getLoadButton()) {
+                    
+                    System.out.println("Loading...");
+                    
+                } else if(clickSource == navView.getSaveButton()) {
+                    
+                    System.out.println("Saving...");
+                    
                 } else {}
                 
             }
@@ -61,6 +86,7 @@ public class MainController {
         
         //Adds ActionListener to 'Authenticate' button
         authView.addActionListener(new actionListener());
+        navView.addActionListener(new actionListener());
         
     }
 
