@@ -1,58 +1,62 @@
 
 package ist311project;
 
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 
-public class AuthView extends JPanel {
+public class AuthView extends FlowPane {
     
     private AuthModel authModel;
     
-    private JLabel usernameLabel;
-    private JTextField usernameField;
-    private JLabel passwordLabel;
-    private JPasswordField passwordField;
-    private JButton authenticateButton;
-    private JLabel authenticateLabel;
+    private Text usernameLabel;
+    private TextField usernameField;
+    private Text passwordLabel;
+    private PasswordField passwordField;
+    private Button authenticateButton;
+    private Text authenticateLabel;
     
     AuthView(AuthModel model) {
         
         this.authModel = model;
         
-        usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField(10);
-        passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField(10);
-        authenticateButton = new JButton("Authenticate");
-        authenticateLabel = new JLabel("");
+        this.setAlignment(Pos.CENTER);
+        this.setHgap(10);
+        this.setVgap(10);
         
-        this.add(usernameLabel);
-        this.add(usernameField);
-        this.add(passwordLabel);
-        this.add(passwordField);
-        this.add(authenticateButton);
-        this.add(authenticateLabel);
+        usernameLabel = new Text("Username:");
+        usernameField = new TextField();
+        passwordLabel = new Text("Password:");
+        passwordField = new PasswordField();
+        authenticateButton = new Button("Authenticate");
+        authenticateLabel = new Text("");
+        
+        this.getChildren().add(usernameLabel);
+        this.getChildren().add(usernameField);
+        this.getChildren().add(passwordLabel);
+        this.getChildren().add(passwordField);
+        this.getChildren().add(authenticateButton);
+        this.getChildren().add(authenticateLabel);
         
     }
     
-    public JTextField getUsernameField() {
+    public TextField getUsernameField() {
         return this.usernameField;
     }
     
-    public JButton getAuthenticateButton() {
+    public PasswordField getPasswordField() {
+        return this.passwordField;
+    }
+    
+    public Button getAuthenticateButton() {
         return this.authenticateButton;
     }
     
-    public JLabel getAuthenticateLabel() {
+    public Text getAuthenticateLabel() {
         return this.authenticateLabel;
-    }
-    
-    public void addActionListener(ActionListener al) {
-        this.authenticateButton.addActionListener(al);
     }
     
 }

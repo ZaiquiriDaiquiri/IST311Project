@@ -7,10 +7,8 @@ public class NavController {
     private NavView navView;
     
     NavController(NavModel model, NavView view) {
-        
         this.navModel = model;
         this.navView = view;
-        
     }
     
 }

@@ -1,72 +1,77 @@
 
 package ist311project;
 
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.FlowPane;
 
-public class NavView extends JPanel{
+public class NavView extends FlowPane{
     
     private NavModel navModel;
     
-    private JButton newTaskButton;
-    private JButton viewTaskButton;
-    private JButton newContactButton;
-    private JButton viewContactButton;
-    private JButton loadButton;
-    private JButton saveButton;
+    private Button newTaskButton;
+    private Button newContactButton;
+    private Button loadButton;
+    private Button saveButton;
+    private Button logoutButton;
         
     NavView(NavModel model) {
         
         this.navModel = model;
         
-        newTaskButton = new JButton("New Task");
-        viewTaskButton = new JButton("View Tasks");
-        newContactButton = new JButton("New Contact");
-        viewContactButton = new JButton("View Contacts");
-        loadButton = new JButton("Load Data");
-        saveButton = new JButton("Save Data");
+        this.setAlignment(Pos.CENTER);
+        this.setHgap(10);
+        this.setVgap(10);
+        
+        newTaskButton = new Button("New Task");
+        newContactButton = new Button("New Contact");
+        loadButton = new Button("Load Data");
+        saveButton = new Button("Save Data");
+        logoutButton = new Button("Logout");
+        
+        TabPane tabPane = new TabPane();
+        tabPane.setMinSize(400, 400);
+        
+        Tab taskTab = new Tab();
+        taskTab.setText("Tasks");
+        taskTab.setContent(newTaskButton);
+        taskTab.setClosable(false);
+        
+        Tab contactTab = new Tab();
+        contactTab.setText("Contacts");
+        contactTab.setContent(newContactButton);
+        contactTab.setClosable(false);
+        
+        tabPane.getTabs().add(taskTab);
+        tabPane.getTabs().add(contactTab);
                         
-        this.add(newTaskButton);
-        this.add(viewTaskButton);
-        this.add(newContactButton);
-        this.add(viewContactButton);
-        this.add(loadButton);
-        this.add(saveButton);
+        this.getChildren().add(tabPane);
+        this.getChildren().add(loadButton);
+        this.getChildren().add(saveButton);
+        this.getChildren().add(logoutButton);
         
     }
     
-    public JButton getNewTaskButton() {
+    public Button getNewTaskButton() {
         return this.newTaskButton;
     }
     
-    public JButton getViewTaskButton() {
-        return this.viewTaskButton;
-    }
-    
-    public JButton getNewContactButton() {
+    public Button getNewContactButton() {
         return this.newContactButton;
     }
     
-    public JButton getViewContactButton() {
-        return this.viewContactButton;
-    }
-    
-    public JButton getLoadButton() {
+    public Button getLoadButton() {
         return this.loadButton;
     }
     
-    public JButton getSaveButton() {
+    public Button getSaveButton() {
         return this.saveButton;
     }
     
-    public void addActionListener(ActionListener al) {
-        this.newTaskButton.addActionListener(al);
-        this.viewTaskButton.addActionListener(al);
-        this.newContactButton.addActionListener(al);
-        this.viewContactButton.addActionListener(al);
-        this.loadButton.addActionListener(al);
-        this.saveButton.addActionListener(al);
+    public Button getLogoutButton() {
+        return this.logoutButton;
     }
     
 }

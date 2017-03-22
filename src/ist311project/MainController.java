@@ -1,92 +1,51 @@
 
 package ist311project;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class MainController {
     
-    private MainModel mModel;
-    private MainView mView;
+    private MainModel mainModel;
+    private MainView mainView;
     
-    private AuthView authView;
     private AuthModel authModel;
+    private AuthView authView;
     private AuthController authController;
+    
     private NavModel navModel;
     private NavView navView;
     private NavController navController;
     
-    String[] userArray = new String[3];
-    
     MainController(MainModel model, MainView view) {
 
-        this.mModel = model;
-        this.mView = view;
+        this.mainModel = model;
+        this.mainView = view;
         
         authModel = new AuthModel();
         authView = new AuthView(authModel);
         authController = new AuthController(authModel, authView);
+        
         navModel = new NavModel();
         navView = new NavView(navModel);
         navController = new NavController(navModel, navView);
         
-        userArray[0] = "User1";
-        userArray[1] = "User2";
-        userArray[2] = "User3";
+        //Sets the initial pane to AuthUI
+        mainView.getChildren().add(authView);
         
-        //Sets initial Content Pane to Authentication
-        mView.getContentPane().add(authView);
-        
-        //ActionListener inner class
-        class actionListener implements ActionListener {
-            public void actionPerformed(ActionEvent e) {
-                JButton clickSource = (JButton)e.getSource();
-                
-                //'Authenticate' button source
-                if(clickSource == authView.getAuthenticateButton()) {
-                    //Credential Check - [True] Content Pane is switched from Authentication to Navigation / [False] Display 'Invalid Credentials'
-                    if(authView.getUsernameField().getText().equals(userArray[0]) || authView.getUsernameField().getText().equals(userArray[0]) || authView.getUsernameField().getText().equals(userArray[0]) ) {
-                        mView.getContentPane().removeAll();
-                        mView.getContentPane().add(navView);
-                        mView.revalidate();
-                        mView.repaint();
-                    } else {
-                        authView.getAuthenticateLabel().setText("Invalid Credentials");
-                    }
-                    
-                } else if(clickSource == navView.getNewTaskButton()) {
-                    
-                    System.out.println("Creating Task...");
-                    
-                } else if(clickSource == navView.getViewTaskButton()) {
-                    
-                    System.out.println("Displaying Tasks...");
-                    
-                } else if(clickSource == navView.getNewContactButton()) {
-                    
-                    System.out.println("Creating Contact...");
-                    
-                } else if(clickSource == navView.getViewContactButton()) {
-                    
-                    System.out.println("Display Contacts...");
-                    
-                } else if(clickSource == navView.getLoadButton()) {
-                    
-                    System.out.println("Loading...");
-                    
-                } else if(clickSource == navView.getSaveButton()) {
-                    
-                    System.out.println("Saving...");
-                    
+        //Actions when 'Authenticate' is pressed
+        authView.getAuthenticateButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Authenticating...");
+                if(authController.authenticate(authView.getUsernameField().getText(), authView.getPasswordField().getText())) {
+                    System.out.println("Removing AuthUI...");
+                    mainView.getChildren().remove(authView);
+                    System.out.println("Adding NavUI...");
+                    mainView.getChildren().add(navView);
                 } else {}
-                
             }
-        }
-        
-        //Adds ActionListener to 'Authenticate' button
-        authView.addActionListener(new actionListener());
-        navView.addActionListener(new actionListener());
+        });
         
     }
 

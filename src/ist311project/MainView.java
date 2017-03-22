@@ -1,22 +1,21 @@
 
 package ist311project;
 
-import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.FlowPane;
 
-public class MainView extends JFrame{
+public class MainView extends FlowPane{
     
-    private MainModel mModel;
+    private MainModel mainModel;
     
     MainView(MainModel model) {
+        this.mainModel = model;
         
-        this.mModel = model;
-        
-        this.setSize(700, 400);
-        this.setTitle("IST 311 Program");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        
+        this.setAlignment(Pos.CENTER);
+        this.setHgap(10);
+        this.setVgap(10);
+        this.setPadding(new Insets(10, 10, 10, 10));
     }
     
 }
