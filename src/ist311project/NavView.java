@@ -4,13 +4,15 @@ package ist311project;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /*
     TODO
@@ -51,7 +53,15 @@ public class NavView extends BorderPane {
         logoutButton = new Button("Logout");
         
         //ToolBar
-        toolBar = new ToolBar(loadButton, saveButton, new Separator(), logoutButton);
+        HBox leftToolBar = new HBox(loadButton, saveButton);
+        HBox rightToolBar = new HBox(logoutButton);
+        leftToolBar.setSpacing(10);
+        HBox.setHgrow(leftToolBar, Priority.ALWAYS);
+        HBox.setHgrow(rightToolBar, Priority.ALWAYS);
+        leftToolBar.setAlignment(Pos.CENTER_LEFT);
+        rightToolBar.setAlignment(Pos.CENTER_RIGHT);
+        toolBar = new ToolBar(leftToolBar, rightToolBar);
+        
         
         //TabPane
         tabPane = new TabPane();
