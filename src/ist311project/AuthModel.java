@@ -9,7 +9,8 @@ public class AuthModel {
 
     AuthModel() {
         userInfo = new HashMap<>();
-        userInfo.put("User", "password");
+        userInfo.put("", "");
+        userInfo.put("user", "pass");
     }
     
     public HashMap<String, String> getUserInfo() {

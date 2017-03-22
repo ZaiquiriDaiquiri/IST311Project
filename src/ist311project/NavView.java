@@ -1,56 +1,137 @@
 
 package ist311project;
 
-import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.ToolBar;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
-public class NavView extends FlowPane{
+/*
+    TODO
+    -Move some code into NavController (EventHandlers mostly)
+    -Work on figuring out TabWidth, BorderPane's prefSize
+
+    FUTURE TODO
+    -Turn tabs into classes
+*/
+
+public class NavView extends BorderPane {
     
     private NavModel navModel;
-    
-    private Button newTaskButton;
-    private Button newContactButton;
+        private NewTaskView newTaskView;
+        private NewContactView newContactView;
+        
     private Button loadButton;
     private Button saveButton;
     private Button logoutButton;
+    private ToolBar toolBar;
         
+    private TabPane tabPane;
+        private Tab taskTab;
+            private FlowPane taskPane;
+                private Button newTaskButton;
+        private Tab contactTab;
+            private FlowPane contactPane;
+                private Button newContactButton;
+    
     NavView(NavModel model) {
         
         this.navModel = model;
+            newTaskView = new NewTaskView();
+            newContactView = new NewContactView();
         
-        this.setAlignment(Pos.CENTER);
-        this.setHgap(10);
-        this.setVgap(10);
-        
-        newTaskButton = new Button("New Task");
-        newContactButton = new Button("New Contact");
         loadButton = new Button("Load Data");
         saveButton = new Button("Save Data");
         logoutButton = new Button("Logout");
         
-        TabPane tabPane = new TabPane();
-        tabPane.setMinSize(400, 400);
+        //ToolBar
+        toolBar = new ToolBar(loadButton, saveButton, new Separator(), logoutButton);
         
-        Tab taskTab = new Tab();
-        taskTab.setText("Tasks");
-        taskTab.setContent(newTaskButton);
-        taskTab.setClosable(false);
-        
-        Tab contactTab = new Tab();
-        contactTab.setText("Contacts");
-        contactTab.setContent(newContactButton);
-        contactTab.setClosable(false);
-        
+        //TabPane
+        tabPane = new TabPane();
+        tabPane.setTabMinWidth(330);
+            //Task Tab
+            taskTab = new Tab();
+            taskTab.setText("Tasks");
+                taskPane = new FlowPane();
+                taskPane.setHgap(10);
+                taskPane.setVgap(10);
+                taskPane.setPadding(new Insets(10, 10, 10, 10));
+                    newTaskButton = new Button("New Task");
+                taskPane.getChildren().add(newTaskButton);
+            taskTab.setContent(taskPane);
+            taskTab.setClosable(false);
+            //Contact Tab
+            contactTab = new Tab();
+            contactTab.setText("Contacts");
+                contactPane = new FlowPane();
+                contactPane.setHgap(10);
+                contactPane.setVgap(10);
+                contactPane.setPadding(new Insets(10, 10, 10, 10));
+                    newContactButton = new Button("New Contact");
+                contactPane.getChildren().add(newContactButton);
+            contactTab.setContent(contactPane);
+            contactTab.setClosable(false);
         tabPane.getTabs().add(taskTab);
         tabPane.getTabs().add(contactTab);
-                        
-        this.getChildren().add(tabPane);
-        this.getChildren().add(loadButton);
-        this.getChildren().add(saveButton);
-        this.getChildren().add(logoutButton);
+        
+        this.setTop(toolBar);
+        this.setCenter(tabPane);
+        this.setPrefSize(710, 410);
+        
+        //Action when 'Create Task' is pressed
+        newTaskButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                newTaskView.show(); //Opens the creation dialog
+                
+                //Action when 'Create' is pressed
+                newTaskView.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        //Creation of the Task goes here
+                    }
+                });
+                
+                //Action when 'Cancel' is pressed
+                newTaskView.getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        newTaskView.close(); //Closes the creation dialog
+                    }
+                });
+            }
+        });
+        
+        //Action when 'Create Contact' is pressed
+        newContactButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                newContactView.show(); //Opens the creation dialog
+                
+                //Action when 'Create' is pressed
+                newContactView.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        //Creation of the Contact goes here
+                    }
+                });
+                
+                //Action when 'Cancel' is pressed
+                newContactView.getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        newContactView.close();  //Closes the creation dialog
+                    }
+                });
+            }
+        });
         
     }
     

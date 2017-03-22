@@ -1,23 +1,25 @@
 
 package ist311project;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
-public class AuthView extends FlowPane {
+public class AuthView extends GridPane {
     
     private AuthModel authModel;
     
-    private Text usernameLabel;
+    private Label usernameLabel;
     private TextField usernameField;
-    private Text passwordLabel;
+    private Label passwordLabel;
     private PasswordField passwordField;
     private Button authenticateButton;
-    private Text authenticateLabel;
+    private Label authenticateLabel;
     
     AuthView(AuthModel model) {
         
@@ -27,19 +29,26 @@ public class AuthView extends FlowPane {
         this.setHgap(10);
         this.setVgap(10);
         
-        usernameLabel = new Text("Username:");
-        usernameField = new TextField();
-        passwordLabel = new Text("Password:");
-        passwordField = new PasswordField();
-        authenticateButton = new Button("Authenticate");
-        authenticateLabel = new Text("");
+        authenticateLabel = new Label("");
+        authenticateLabel.setTextFill(Color.RED);
         
-        this.getChildren().add(usernameLabel);
-        this.getChildren().add(usernameField);
-        this.getChildren().add(passwordLabel);
-        this.getChildren().add(passwordField);
-        this.getChildren().add(authenticateButton);
-        this.getChildren().add(authenticateLabel);
+        usernameLabel = new Label("Username:");
+        usernameField = new TextField();
+        
+        passwordLabel = new Label("Password:");
+        passwordField = new PasswordField();
+        
+        authenticateButton = new Button("Authenticate");
+        authenticateButton.setPrefWidth(150);
+        
+        this.add(authenticateLabel, 0, 0, 2, 1);
+        GridPane.setHalignment(authenticateLabel, HPos.CENTER);
+        this.add(usernameLabel, 0, 1);
+        this.add(usernameField, 1, 1);
+        this.add(passwordLabel, 0, 2);
+        this.add(passwordField, 1, 2);
+        this.add(authenticateButton, 0, 3, 2, 1);
+        GridPane.setHalignment(authenticateButton, HPos.CENTER);
         
     }
     
@@ -55,7 +64,7 @@ public class AuthView extends FlowPane {
         return this.authenticateButton;
     }
     
-    public Text getAuthenticateLabel() {
+    public Label getAuthenticateLabel() {
         return this.authenticateLabel;
     }
     

@@ -16,9 +16,10 @@ public class IST311Project extends Application{
         MainView mainView = new MainView(mainModel);
         MainController mainController = new MainController(mainModel, mainView);
         
-        Scene mainScene = new Scene(mainView, 700, 700);
+        Scene mainScene = new Scene(mainView, 700, 400);
         mainStage.setScene(mainScene);
         mainStage.show();
+        mainStage.setResizable(false);
     }
     
     public static void main(String[] args) {

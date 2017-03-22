@@ -33,20 +33,29 @@ public class MainController {
         //Sets the initial pane to AuthUI
         mainView.getChildren().add(authView);
         
-        //Actions when 'Authenticate' is pressed
+        //Action when 'Authenticate' is pressed
         authView.getAuthenticateButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Authenticating...");
                 if(authController.authenticate(authView.getUsernameField().getText(), authView.getPasswordField().getText())) {
-                    System.out.println("Removing AuthUI...");
+                    //Switches panes and clears credential fields
                     mainView.getChildren().remove(authView);
-                    System.out.println("Adding NavUI...");
+                    authView.getUsernameField().setText("");
+                    authView.getPasswordField().setText("");
                     mainView.getChildren().add(navView);
                 } else {}
             }
         });
-        
+        //Action when 'Logout' is pressed
+        navView.getLogoutButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Switches panes
+                mainView.getChildren().remove(navView);
+                mainView.getChildren().add(authView);
+            }
+        });
     }
 
 }
