@@ -37,7 +37,6 @@ public class MainController {
         authView.getAuthenticateButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Authenticating...");
                 if(authController.authenticate(authView.getUsernameField().getText(), authView.getPasswordField().getText())) {
                     //Switches panes and clears credential fields
                     mainView.getChildren().remove(authView);

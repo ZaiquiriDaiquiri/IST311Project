@@ -1,28 +1,30 @@
 
 package ist311project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class NewContactView extends Stage {
     
     private Scene newContactScene;
-    private FlowPane newContactPane;
+    private GridPane newContactPane;
     
     private Label nameLabel;
     private TextField nameField;
     
     private Label contactTypeLabel;
-    private ToggleGroup contactTypeGroup;
-        private RadioButton professionalButton;
-        private RadioButton personalButton;
+    private ObservableList<String> contactTypeList;
+    private ComboBox contactTypeComboBox;
         
     private Label mPhoneLabel;
     private TextField mPhoneField;
@@ -52,8 +54,9 @@ public class NewContactView extends Stage {
     NewContactView() {
         
         this.setTitle("Create New Contact");
-        newContactPane = new FlowPane();
-        newContactScene = new Scene(newContactPane, 500, 400);
+        newContactPane = new GridPane();
+        newContactPane.setAlignment(Pos.CENTER);
+        newContactScene = new Scene(newContactPane);
         this.setScene(newContactScene);
         
         newContactPane.setHgap(10);
@@ -64,11 +67,8 @@ public class NewContactView extends Stage {
         nameField = new TextField();
         
         contactTypeLabel = new Label("Contact Type:");
-        contactTypeGroup = new ToggleGroup();
-            professionalButton = new RadioButton("Professional");
-                professionalButton.setToggleGroup(contactTypeGroup);
-            personalButton = new RadioButton("Personal");
-                personalButton.setToggleGroup(contactTypeGroup);
+        contactTypeList = FXCollections.observableArrayList("Professional", "Personal");
+        contactTypeComboBox = new ComboBox(contactTypeList);
         
         mPhoneLabel = new Label("Mobile Phone:");
         mPhoneField = new TextField();
@@ -94,19 +94,69 @@ public class NewContactView extends Stage {
         
         createButton = new Button("Create");
         cancelButton = new Button("Cancel");
-
-        newContactPane.getChildren().addAll(nameLabel, nameField, 
-                                            contactTypeLabel, professionalButton, personalButton, 
-                                            mPhoneLabel, mPhoneField, 
-                                            hPhoneLabel, hPhoneField, 
-                                            wPhoneLabel, wPhoneField, 
-                                            emailLabel, emailField, 
-                                            addressLabel, addressField, 
-                                            nicknameLabel, nicknameField, 
-                                            compLabel, compField, 
-                                            compTitleLabel, compTitleField, 
-                                            createButton, cancelButton);
+        createButton.setPrefWidth(100);
+        cancelButton.setPrefWidth(100);
         
+        GridPane.setHalignment(nameLabel, HPos.RIGHT);
+        GridPane.setHalignment(contactTypeLabel, HPos.RIGHT);
+        GridPane.setHalignment(mPhoneLabel, HPos.RIGHT);
+        GridPane.setHalignment(wPhoneLabel, HPos.RIGHT);
+        GridPane.setHalignment(hPhoneLabel, HPos.RIGHT);
+        GridPane.setHalignment(emailLabel, HPos.RIGHT);
+        GridPane.setHalignment(addressLabel, HPos.RIGHT);
+        GridPane.setHalignment(compLabel, HPos.RIGHT);
+        GridPane.setHalignment(compTitleLabel, HPos.RIGHT);
+        GridPane.setHalignment(nicknameLabel, HPos.RIGHT);
+        GridPane.setHalignment(createButton, HPos.RIGHT);
+        GridPane.setHalignment(cancelButton, HPos.LEFT);
+
+        newContactPane.add(nameLabel, 0, 0);
+        newContactPane.add(nameField, 1, 0);
+        newContactPane.add(contactTypeLabel, 2, 0);
+        newContactPane.add(contactTypeComboBox, 3, 0);
+        
+        newContactPane.add(mPhoneLabel, 0, 1);
+        newContactPane.add(mPhoneField, 1, 1);
+        newContactPane.add(wPhoneLabel, 2, 1);
+        newContactPane.add(wPhoneField, 3, 1);
+        
+        newContactPane.add(hPhoneLabel, 0, 2);
+        newContactPane.add(hPhoneField, 1, 2);
+        newContactPane.add(emailLabel, 2, 2);
+        newContactPane.add(emailField, 3, 2);
+        
+        newContactPane.add(addressLabel, 0, 3);
+        newContactPane.add(addressField, 1, 3, 3, 1);
+        
+        newContactPane.add(compLabel, 0, 4);
+        newContactPane.add(compField, 1, 4);
+        newContactPane.add(compTitleLabel, 2, 4);
+        newContactPane.add(compTitleField, 3, 4);
+        
+        newContactPane.add(nicknameLabel, 0, 5);
+        newContactPane.add(nicknameField, 1, 5);
+        
+        newContactPane.add(createButton, 0, 6, 2, 1);
+        newContactPane.add(cancelButton, 2, 6, 2, 1);
+        
+        //this.newContactPane.setGridLinesVisible(true);
+        
+    }
+    
+    public ComboBox getContactTypeComboBoxButton() {
+        return this.contactTypeComboBox;
+    }
+    
+    public TextField getNicknameField() {
+        return this.nicknameField;
+    }
+    
+    public TextField getCompField() {
+        return this.compField;
+    }
+    
+    public TextField getCompTitleField() {
+        return this.compTitleField;
     }
     
     public Button getCreateButton() {

@@ -20,6 +20,7 @@ import javafx.scene.layout.Priority;
     -Work on figuring out TabWidth, BorderPane's prefSize
 
     FUTURE TODO
+    -Add refresh button OR automatically refresh when something new is created (maybe on create click?)
     -Turn tabs into classes
 */
 
@@ -122,10 +123,23 @@ public class NavView extends BorderPane {
         });
         
         //Action when 'All Day' is checked
-        newTaskView.getAllDayCB().setOnAction(new EventHandler<ActionEvent>() {
+        newTaskView.getAllDayCheckBox().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                newTaskView.getDateTimeField().setDisable(newTaskView.getAllDayCB().isSelected());
+                newTaskView.getDateTimeField().setDisable(newTaskView.getAllDayCheckBox().isSelected());
+            }
+        });
+        
+        //Action when 'Contact Type' is changed
+        newContactView.getContactTypeComboBoxButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(newContactView.getContactTypeComboBoxButton().equals("Professional")) {
+                    newContactView.getNicknameField().setDisable(true);
+                } else if(newContactView.getContactTypeComboBoxButton().equals("Professional")) {
+                    newContactView.getCompField().setDisable(true);
+                    newContactView.getCompTitleField().setDisable(true);
+                } else {}
             }
         });
         
