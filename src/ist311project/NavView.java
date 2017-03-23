@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToolBar;
@@ -40,6 +41,7 @@ public class NavView extends BorderPane {
         private Tab taskTab;
             private FlowPane taskPane;
                 private Button newTaskButton;
+                private FlowPane taskListPane;
         private Tab contactTab;
             private FlowPane contactPane;
                 private Button newContactButton;
@@ -77,7 +79,8 @@ public class NavView extends BorderPane {
                 taskPane.setVgap(10);
                 taskPane.setPadding(new Insets(10, 10, 10, 10));
                     newTaskButton = new Button("New Task");
-                taskPane.getChildren().add(newTaskButton);
+                    taskListPane = new FlowPane();
+                taskPane.getChildren().addAll(newTaskButton, taskListPane);
             taskTab.setContent(taskPane);
             taskTab.setClosable(false);
             //Contact Tab & Content
@@ -123,6 +126,9 @@ public class NavView extends BorderPane {
     public Button getNewTaskButton() {
         return this.newTaskButton;
     }
+    public FlowPane getTaskListPane() {
+        return this.taskListPane;
+    }
     public FlowPane getContactPane() {
         return this.contactPane;
     }
@@ -130,22 +136,23 @@ public class NavView extends BorderPane {
         return this.newContactButton;
     }
     
-    //MOVE TO CONTROLLER
-    public void createTask(NewTaskView infoView, ArrayList<Task> taskArray) {
-        String title = infoView.getTitleField().getText();
-        String contact = infoView.getContactComboBox().getValue().toString();
-        String location = infoView.getLocationField().getText();
-        String priority = infoView.getPriorityComboBox().getValue().toString();
-        String desc = infoView.getDescArea().getText();
+    //ADJUST VARIABLES
+    public FlowPane createAndGetTaskTile(Task task) {
+        FlowPane taskTile = new FlowPane();
+        Label title = new Label();
+        Label datetime = new Label();
+        Label contact = new Label();
+        Label location = new Label();
+        Label priority = new Label();
+        Label desc = new Label();
         
-        if(!infoView.getAllDayCheckBox().isSelected()) {
-            String datetime = infoView.getDateTimeField().getText();
-            TimeSensTask newTask = new TimeSensTask(title, datetime, contact, location, priority, desc);
-            taskArray.add(newTask);
-        } else if(infoView.getAllDayCheckBox().isSelected()) {
-            String date = infoView.getDateField().getText();
-            ToDoTask newTask = new ToDoTask(title, date, contact, location, priority, desc);
-            taskArray.add(newTask);
-        } else {}
+        title.setText(task.getTitle());
+        datetime.setText(task.getDateTime());
+        contact.setText(task.getContact());
+        location.setText(task.getLocation());
+        priority.setText(task.getPriority());
+        desc.setText(task.getDesc());
+        taskTile.getChildren().addAll(title, datetime, contact, location, priority, desc);
+        return taskTile;
     }
 }

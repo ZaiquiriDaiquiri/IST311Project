@@ -1,9 +1,11 @@
 
 package ist311project;
 
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 
 public class NavController {
     private NavModel navModel;
@@ -18,8 +20,7 @@ public class NavController {
         navView.getNewTaskButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //Opens the creation dialog
-                navView.getNewTaskView().show();
+                showNewTaskView();
             }
         });
         
@@ -27,9 +28,7 @@ public class NavController {
             navView.getNewTaskView().getAllDayCheckBox().setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    //Disables other date/datetime field
-                    navView.getNewTaskView().getDateTimeField().setDisable(navView.getNewTaskView().getAllDayCheckBox().isSelected());
-                    navView.getNewTaskView().getDateField().setDisable(!navView.getNewTaskView().getAllDayCheckBox().isSelected());
+                    disableDateTimeSwitch();
                 }
             });
             //Action when 'Create' is pressed
@@ -37,16 +36,15 @@ public class NavController {
                 @Override
                 public void handle(ActionEvent event) {
                     //TASK CREATION
-                    navView.createTask(navView.getNewTaskView(), navModel.getTempTaskArray());
-                    navView.getTaskPane().getChildren().add(new Label("Task"));
+                    createTask(navModel.getTempTaskArray());
+                    displayTasks(navModel.getTempTaskArray());
                 }
             });
             //Action when 'Cancel' is pressed
             navView.getNewTaskView().getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    //Closes the creation dialog
-                    navView.getNewTaskView().close();
+                    closeNewTaskView();
                 }
             });
         
@@ -55,8 +53,7 @@ public class NavController {
         navView.getNewContactButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                //Opens the creation dialog
-                navView.getNewContactView().show();
+                showNewContactView();
             }
         });
         
@@ -85,9 +82,59 @@ public class NavController {
             navView.getNewContactView().getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    //Closes the creation dialog
-                    navView.getNewContactView().close();
+                    closeNewContactView();
                 }
             });
+    }
+    
+    public void showNewTaskView() {
+        navView.getNewTaskView().show();
+    }
+    public void disableDateTimeSwitch() {
+        navView.getNewTaskView().getDateTimeField().setDisable(navView.getNewTaskView().getAllDayCheckBox().isSelected());
+        navView.getNewTaskView().getDateField().setDisable(!navView.getNewTaskView().getAllDayCheckBox().isSelected());
+    }
+    public void createTask(ArrayList<Task> taskArray) {
+        NewTaskView infoView = this.navView.getNewTaskView();
+        
+        Task newTask;
+        String title = infoView.getTitleField().getText();
+        String contact = infoView.getContactComboBox().getValue().toString();
+        String location = infoView.getLocationField().getText();
+        String priority = infoView.getPriorityComboBox().getValue().toString();
+        String desc = infoView.getDescArea().getText();
+        
+        if(!infoView.getAllDayCheckBox().isSelected()) {
+            String datetime = infoView.getDateTimeField().getText();
+            newTask = new TimeSensTask(title, priority, datetime, location, contact, desc);
+            taskArray.add(newTask);
+        } else if(infoView.getAllDayCheckBox().isSelected()) {
+            String date = infoView.getDateField().getText();
+            newTask = new ToDoTask(title, priority, date, location, contact, desc);
+            taskArray.add(newTask);
+        } else {}
+    }
+    public FlowPane taskToPane(Task task) {
+        FlowPane newTaskPane = new FlowPane();
+        newTaskPane.getChildren().add(new Label(task.getTitle()));
+        return newTaskPane;
+    }
+    public void clearTasks() {
+        navView.getTaskListPane().getChildren().clear();
+    }
+    public void displayTasks(ArrayList<Task> taskArray) {
+        clearTasks();
+        for(int i = 0; i < taskArray.size(); i++) {
+            navView.getTaskListPane().getChildren().add(taskToPane(taskArray.get(i)));
+        }
+    }
+    public void closeNewTaskView() {
+        navView.getNewTaskView().close();
+    }
+    public void showNewContactView() {
+        navView.getNewContactView().show();
+    }
+    public void closeNewContactView() {
+        navView.getNewContactView().close();
     }
 }

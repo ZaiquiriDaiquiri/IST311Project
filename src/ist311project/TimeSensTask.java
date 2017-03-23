@@ -29,4 +29,9 @@ public class TimeSensTask extends Task {
         System.out.println(this.taskContact);
         System.out.println(this.taskDesc);
     }
+    
+    @Override
+    public String getDateTime() {
+        return this.taskDateTime;
+    }
 }

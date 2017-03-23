@@ -7,6 +7,7 @@ public abstract class Task {
     private String taskLocation;
     private String taskContact;
     private String taskDesc;
+    private String taskDateTime;
     
     Task(String title, String priority, String location, String contact, String desc) {
         this.taskTitle = title;
@@ -16,5 +17,24 @@ public abstract class Task {
         this.taskDesc = desc;
     }
     
-    public void printTask() {}
+    public void printTask() {} //ABSTRACT METHOD?
+    
+    public String getTitle() {
+        return this.taskTitle;
+    }
+    public String getPriority() {
+        return this.taskPriority;
+    }
+    public String getLocation() {
+        return this.taskLocation;
+    }
+    public String getContact() {
+        return this.taskContact;
+    }
+    public String getDesc() {
+        return this.taskDesc;
+    }
+    public String getDateTime() {
+        return this.taskDateTime;
+    }
 }

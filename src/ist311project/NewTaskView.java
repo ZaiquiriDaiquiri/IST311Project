@@ -65,7 +65,6 @@ public class NewTaskView extends Stage {
         priorityLabel = new Label("Priority Level:");
         priorityList = FXCollections.observableArrayList( "High", "Normal", "Low");
         priorityComboBox = new ComboBox(priorityList);
-        priorityComboBox.setValue("Normal");
         
         datetimeLabel = new Label("Date & Time:");
         datetimeField = new TextField();
@@ -77,13 +76,15 @@ public class NewTaskView extends Stage {
         locationField = new TextField();
         
         contactLabel = new Label("Contacts:");
-        contactList = FXCollections.observableArrayList("", "Contact List");
+        contactList = FXCollections.observableArrayList("Contact List");
         contactComboBox = new ComboBox(contactList);
         
         descLabel = new Label("Description:");
         descArea = new TextArea();
         descArea.setPrefRowCount(2);
         descArea.setWrapText(true);
+        
+        setDefaults();
         
         createButton = new Button("Create");
         cancelButton = new Button("Cancel");
@@ -123,6 +124,16 @@ public class NewTaskView extends Stage {
         //Row 5
         newTaskPane.add(createButton, 0, 4, 2, 1);
         newTaskPane.add(cancelButton, 2, 4, 2, 1);
+    }
+    
+    private void setDefaults() {
+        this.titleField.setText("");
+        this.priorityComboBox.setValue("Normal");
+        this.datetimeField.setText("");
+        this.dateField.setText("");
+        this.locationField.setText("");
+        this.contactComboBox.setValue("Contact List");
+        this.descArea.setText("");
     }
     
     //Get() Methods
