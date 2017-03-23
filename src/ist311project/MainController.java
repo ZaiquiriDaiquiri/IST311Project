@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class MainController {
-    
     private MainModel mainModel;
     private MainView mainView;
     
@@ -18,7 +17,6 @@ public class MainController {
     private NavController navController;
     
     MainController(MainModel model, MainView view) {
-
         this.mainModel = model;
         this.mainView = view;
         
@@ -40,6 +38,7 @@ public class MainController {
                 if(authController.authenticate(authView.getUsernameField().getText(), authView.getPasswordField().getText())) {
                     //Switches panes and clears credential fields
                     mainView.getChildren().remove(authView);
+                    authView.getAuthenticateLabel().setText("");
                     authView.getUsernameField().setText("");
                     authView.getPasswordField().setText("");
                     mainView.getChildren().add(navView);

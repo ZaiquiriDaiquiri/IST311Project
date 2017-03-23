@@ -1,8 +1,7 @@
 
 package ist311project;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,7 +15,6 @@ import javafx.scene.layout.Priority;
 
 /*
     TODO
-    -Move some code into NavController (EventHandlers mostly)
     -Work on figuring out TabWidth, BorderPane's prefSize
 
     FUTURE TODO
@@ -25,14 +23,17 @@ import javafx.scene.layout.Priority;
 */
 
 public class NavView extends BorderPane {
-    
     private NavModel navModel;
-        private NewTaskView newTaskView;
-        private NewContactView newContactView;
+    
+    private NewTaskView newTaskView;
+    private NewContactView newContactView;
         
     private Button loadButton;
     private Button saveButton;
     private Button logoutButton;
+    
+    private HBox leftToolBar;
+    private HBox rightToolBar;
     private ToolBar toolBar;
         
     private TabPane tabPane;
@@ -44,18 +45,20 @@ public class NavView extends BorderPane {
                 private Button newContactButton;
     
     NavView(NavModel model) {
-        
         this.navModel = model;
-            newTaskView = new NewTaskView();
-            newContactView = new NewContactView();
         
+        //Creation Dialogue Classes
+        newTaskView = new NewTaskView();
+        newContactView = new NewContactView();
+        
+        //Toolbar Buttons
         loadButton = new Button("Load Data");
         saveButton = new Button("Save Data");
         logoutButton = new Button("Logout");
         
-        //ToolBar
-        HBox leftToolBar = new HBox(loadButton, saveButton);
-        HBox rightToolBar = new HBox(logoutButton);
+        //Toolbar
+        leftToolBar = new HBox(loadButton, saveButton);
+        rightToolBar = new HBox(logoutButton);
         leftToolBar.setSpacing(10);
         HBox.setHgrow(leftToolBar, Priority.ALWAYS);
         HBox.setHgrow(rightToolBar, Priority.ALWAYS);
@@ -63,11 +66,10 @@ public class NavView extends BorderPane {
         rightToolBar.setAlignment(Pos.CENTER_RIGHT);
         toolBar = new ToolBar(leftToolBar, rightToolBar);
         
-        
         //TabPane
         tabPane = new TabPane();
         tabPane.setTabMinWidth(330);
-            //Task Tab
+            //Task Tab & Content
             taskTab = new Tab();
             taskTab.setText("Tasks");
                 taskPane = new FlowPane();
@@ -78,7 +80,7 @@ public class NavView extends BorderPane {
                 taskPane.getChildren().add(newTaskButton);
             taskTab.setContent(taskPane);
             taskTab.setClosable(false);
-            //Contact Tab
+            //Contact Tab & Content
             contactTab = new Tab();
             contactTab.setText("Contacts");
                 contactPane = new FlowPane();
@@ -89,104 +91,61 @@ public class NavView extends BorderPane {
                 contactPane.getChildren().add(newContactButton);
             contactTab.setContent(contactPane);
             contactTab.setClosable(false);
+        //Add Tabs
         tabPane.getTabs().add(taskTab);
         tabPane.getTabs().add(contactTab);
         
+        //Toolbar/Pane Placement
         this.setTop(toolBar);
         this.setCenter(tabPane);
         this.setPrefSize(710, 410);
-        
-        //Action when 'Create Task' is pressed
-        newTaskButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                newTaskView.show(); //Opens the creation dialog
-                
-                
-                
-                //Action when 'Create' is pressed
-                newTaskView.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        //Creation of the Task goes here
-                    }
-                });
-                
-                //Action when 'Cancel' is pressed
-                newTaskView.getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        newTaskView.close(); //Closes the creation dialog
-                    }
-                });
-            }
-        });
-        
-        //Action when 'All Day' is checked
-        newTaskView.getAllDayCheckBox().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                newTaskView.getDateTimeField().setDisable(newTaskView.getAllDayCheckBox().isSelected());
-            }
-        });
-        
-        //Action when 'Contact Type' is changed
-        newContactView.getContactTypeComboBoxButton().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(newContactView.getContactTypeComboBoxButton().equals("Professional")) {
-                    newContactView.getNicknameField().setDisable(true);
-                } else if(newContactView.getContactTypeComboBoxButton().equals("Professional")) {
-                    newContactView.getCompField().setDisable(true);
-                    newContactView.getCompTitleField().setDisable(true);
-                } else {}
-            }
-        });
-        
-        //Action when 'Create Contact' is pressed
-        newContactButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                newContactView.show(); //Opens the creation dialog
-                
-                //Action when 'Create' is pressed
-                newContactView.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        //Creation of the Contact goes here
-                    }
-                });
-                
-                //Action when 'Cancel' is pressed
-                newContactView.getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        newContactView.close();  //Closes the creation dialog
-                    }
-                });
-            }
-        });
-        
     }
     
+    //Get() Methods
+    public NewTaskView getNewTaskView() {
+        return this.newTaskView;
+    }
+    public NewContactView getNewContactView() {
+        return this.newContactView;
+    }
+    public Button getLoadButton() {
+        return this.loadButton;
+    }
+    public Button getSaveButton() {
+        return this.saveButton;
+    }
+    public Button getLogoutButton() {
+        return this.logoutButton;
+    }
+    public FlowPane getTaskPane() {
+        return this.taskPane;
+    }
     public Button getNewTaskButton() {
         return this.newTaskButton;
     }
-    
+    public FlowPane getContactPane() {
+        return this.contactPane;
+    }
     public Button getNewContactButton() {
         return this.newContactButton;
     }
     
-    public Button getLoadButton() {
-        return this.loadButton;
+    //MOVE TO CONTROLLER
+    public void createTask(NewTaskView infoView, ArrayList<Task> taskArray) {
+        String title = infoView.getTitleField().getText();
+        String contact = infoView.getContactComboBox().getValue().toString();
+        String location = infoView.getLocationField().getText();
+        String priority = infoView.getPriorityComboBox().getValue().toString();
+        String desc = infoView.getDescArea().getText();
+        
+        if(!infoView.getAllDayCheckBox().isSelected()) {
+            String datetime = infoView.getDateTimeField().getText();
+            TimeSensTask newTask = new TimeSensTask(title, datetime, contact, location, priority, desc);
+            taskArray.add(newTask);
+        } else if(infoView.getAllDayCheckBox().isSelected()) {
+            String date = infoView.getDateField().getText();
+            ToDoTask newTask = new ToDoTask(title, date, contact, location, priority, desc);
+            taskArray.add(newTask);
+        } else {}
     }
-    
-    public Button getSaveButton() {
-        return this.saveButton;
-    }
-    
-    public Button getLogoutButton() {
-        return this.logoutButton;
-    }
-    
 }
