@@ -90,10 +90,12 @@ public class NavController {
     public void showNewTaskView() {
         navView.getNewTaskView().show();
     }
+    
     public void disableDateTimeSwitch() {
         navView.getNewTaskView().getDateTimeField().setDisable(navView.getNewTaskView().getAllDayCheckBox().isSelected());
         navView.getNewTaskView().getDateField().setDisable(!navView.getNewTaskView().getAllDayCheckBox().isSelected());
     }
+    
     public void createTask(ArrayList<Task> taskArray) {
         NewTaskView infoView = this.navView.getNewTaskView();
         
@@ -114,26 +116,45 @@ public class NavController {
             taskArray.add(newTask);
         } else {}
     }
+    
+    //Creates a pane from a given task
     public FlowPane taskToPane(Task task) {
         FlowPane newTaskPane = new FlowPane();
-        newTaskPane.getChildren().add(new Label(task.getTitle()));
+        newTaskPane.setHgap(10);
+        newTaskPane.setVgap(10);
+        
+        Label title = new Label(task.getTitle());
+        Label priority = new Label(task.getPriority());
+        Label datetime = new Label(task.getDateTime());
+        Label location = new Label(task.getLocation());
+        Label contact = new Label(task.getContact());
+        Label desc = new Label(task.getDesc());
+        
+        newTaskPane.getChildren().addAll(title, priority, datetime, location, contact, desc);
         return newTaskPane;
     }
+    
+    //Clears the task list
     public void clearTasks() {
         navView.getTaskListPane().getChildren().clear();
     }
+    
+    //Displays all tasks in the given data structure
     public void displayTasks(ArrayList<Task> taskArray) {
         clearTasks();
         for(int i = 0; i < taskArray.size(); i++) {
             navView.getTaskListPane().getChildren().add(taskToPane(taskArray.get(i)));
         }
     }
+    
     public void closeNewTaskView() {
         navView.getNewTaskView().close();
     }
+    
     public void showNewContactView() {
         navView.getNewContactView().show();
     }
+    
     public void closeNewContactView() {
         navView.getNewContactView().close();
     }

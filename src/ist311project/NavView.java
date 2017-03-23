@@ -80,6 +80,8 @@ public class NavView extends BorderPane {
                 taskPane.setPadding(new Insets(10, 10, 10, 10));
                     newTaskButton = new Button("New Task");
                     taskListPane = new FlowPane();
+                    taskListPane.setHgap(10);
+                    taskListPane.setVgap(10);
                 taskPane.getChildren().addAll(newTaskButton, taskListPane);
             taskTab.setContent(taskPane);
             taskTab.setClosable(false);
