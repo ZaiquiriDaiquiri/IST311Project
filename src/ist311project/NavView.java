@@ -101,6 +101,8 @@ public class NavView extends BorderPane {
             public void handle(ActionEvent event) {
                 newTaskView.show(); //Opens the creation dialog
                 
+                
+                
                 //Action when 'Create' is pressed
                 newTaskView.getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -116,6 +118,14 @@ public class NavView extends BorderPane {
                         newTaskView.close(); //Closes the creation dialog
                     }
                 });
+            }
+        });
+        
+        //Action when 'All Day' is checked
+        newTaskView.getAllDayCB().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                newTaskView.getDateTimeField().setDisable(newTaskView.getAllDayCB().isSelected());
             }
         });
         
