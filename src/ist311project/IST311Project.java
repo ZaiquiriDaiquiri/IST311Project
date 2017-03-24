@@ -5,8 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class IST311Project extends Application{
-
+public class IST311Project extends Application {
     @Override
     public void start(Stage mainStage) {
         mainStage.setTitle("IST311 Project");
@@ -16,6 +15,7 @@ public class IST311Project extends Application{
         MainView mainView = new MainView(mainModel);
         MainController mainController = new MainController(mainModel, mainView);
         
+        //Stage > Scene > View(Pane) Setup
         Scene mainScene = new Scene(mainView, 700, 400);
         mainStage.setScene(mainScene);
         mainStage.show();
@@ -25,5 +25,4 @@ public class IST311Project extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-    
 }
