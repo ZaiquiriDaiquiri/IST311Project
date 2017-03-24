@@ -1,16 +1,17 @@
 
 package ist311project;
 
-import java.util.ArrayList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
@@ -39,9 +40,9 @@ public class NavView extends BorderPane {
         
     private TabPane tabPane;
         private Tab taskTab;
-            private FlowPane taskPane;
+            private GridPane taskPane;
                 private Button newTaskButton;
-                private FlowPane taskListPane;
+                private GridPane taskListPane;
         private Tab contactTab;
             private FlowPane contactPane;
                 private Button newContactButton;
@@ -74,15 +75,16 @@ public class NavView extends BorderPane {
             //Task Tab & Content
             taskTab = new Tab();
             taskTab.setText("Tasks");
-                taskPane = new FlowPane();
-                taskPane.setHgap(10);
-                taskPane.setVgap(10);
+                taskPane = new GridPane();
                 taskPane.setPadding(new Insets(10, 10, 10, 10));
                     newTaskButton = new Button("New Task");
-                    taskListPane = new FlowPane();
+                    taskListPane = new GridPane();
+                    ScrollPane scroll = new ScrollPane();
+                    scroll.setContent(taskListPane);
                     taskListPane.setHgap(10);
                     taskListPane.setVgap(10);
-                taskPane.getChildren().addAll(newTaskButton, taskListPane);
+                taskPane.add(newTaskButton, 0, 0);
+                taskPane.add(scroll, 0, 1);
             taskTab.setContent(taskPane);
             taskTab.setClosable(false);
             //Contact Tab & Content
@@ -122,13 +124,13 @@ public class NavView extends BorderPane {
     public Button getLogoutButton() {
         return this.logoutButton;
     }
-    public FlowPane getTaskPane() {
+    public GridPane getTaskPane() {
         return this.taskPane;
     }
     public Button getNewTaskButton() {
         return this.newTaskButton;
     }
-    public FlowPane getTaskListPane() {
+    public GridPane getTaskListPane() {
         return this.taskListPane;
     }
     public FlowPane getContactPane() {

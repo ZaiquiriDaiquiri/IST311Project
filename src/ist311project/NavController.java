@@ -4,8 +4,16 @@ package ist311project;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 
 public class NavController {
     private NavModel navModel;
@@ -122,6 +130,7 @@ public class NavController {
         FlowPane newTaskPane = new FlowPane();
         newTaskPane.setHgap(10);
         newTaskPane.setVgap(10);
+        newTaskPane.setPadding(new Insets(10, 10, 10, 10));
         
         Label title = new Label(task.getTitle());
         Label priority = new Label(task.getPriority());
@@ -131,6 +140,8 @@ public class NavController {
         Label desc = new Label(task.getDesc());
         
         newTaskPane.getChildren().addAll(title, priority, datetime, location, contact, desc);
+        newTaskPane.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        
         return newTaskPane;
     }
     
@@ -143,7 +154,7 @@ public class NavController {
     public void displayTasks(ArrayList<Task> taskArray) {
         clearTasks();
         for(int i = 0; i < taskArray.size(); i++) {
-            navView.getTaskListPane().getChildren().add(taskToPane(taskArray.get(i)));
+            navView.getTaskListPane().add(taskToPane(taskArray.get(i)), 0, i);
         }
     }
     
