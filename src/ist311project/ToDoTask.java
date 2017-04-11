@@ -1,37 +1,24 @@
-
 package ist311project;
 
 public class ToDoTask extends Task {
-    private String taskTitle;
-    private String taskPriority;
-    private String taskDate;
-    private String taskLocation;
-    private String taskContact;
-    private String taskDesc;
-    
-    ToDoTask(String title, String priority, String date, String location, String contact, String description) {
-        super(title, priority, location, contact, description);
+
+    private String title;
+    private String priority;
+    private String location;
+    private String contact;
+    private String description;
+
+    ToDoTask() {
         
-        this.taskTitle = title;
-        this.taskPriority = priority;
-        this.taskDate = date;
-        this.taskLocation = location;
-        this.taskContact = contact;
-        this.taskDesc = description;
     }
     
-    @Override
-    public void printTask() {
-        System.out.println(this.taskTitle);
-        System.out.println(this.taskPriority);
-        System.out.println(this.taskDate);
-        System.out.println(this.taskLocation);
-        System.out.println(this.taskContact);
-        System.out.println(this.taskDesc);
+    ToDoTask(String title, String priority, String location, String contact, String description) {
+        super(title, priority, location, contact, description);
+        this.title = title;
+        this.priority = priority;
+        this.location = location;
+        this.contact = contact;
+        this.description = description;
     }
-    
-    @Override
-    public String getDateTime() {
-        return this.taskDate;
-    }
+
 }

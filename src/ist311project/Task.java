@@ -1,40 +1,76 @@
-
 package ist311project;
 
 public abstract class Task {
-    private String taskTitle;
-    private String taskPriority;
-    private String taskLocation;
-    private String taskContact;
-    private String taskDesc;
-    private String taskDateTime;
-    
-    Task(String title, String priority, String location, String contact, String desc) {
-        this.taskTitle = title;
-        this.taskPriority = priority;
-        this.taskLocation = location;
-        this.taskContact = contact;
-        this.taskDesc = desc;
+
+    private String title;
+    private String priority;
+    private String location;
+    private String contact;
+    private String description;
+    private String date;
+    private String time;
+
+    Task() {
+
     }
-    
-    public void printTask() {} //ABSTRACT METHOD?
-    
+
+    Task(String title, String priority, String location, String contact, String description) {
+        this.title = title;
+        this.priority = priority;
+        this.location = location;
+        this.contact = contact;
+        this.description = description;
+    }
+
+    Task(String title, String priority, String location, String contact, String description, String date, String time) {
+        this.title = title;
+        this.priority = priority;
+        this.location = location;
+        this.contact = contact;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+    }
+
+    public void printTask() {
+        System.out.print("Title: ");
+        System.out.println(this.title);
+        System.out.print("Priority: ");
+        System.out.println(this.priority);
+        System.out.print("Location: ");
+        System.out.println(this.location);
+        System.out.print("Contact: ");
+        System.out.println(this.contact);
+        System.out.print("Description: ");
+        System.out.println(this.description);
+    }
+
     public String getTitle() {
-        return this.taskTitle;
+        return this.title;
     }
+
     public String getPriority() {
-        return this.taskPriority;
+        return this.priority;
     }
+
     public String getLocation() {
-        return this.taskLocation;
+        return this.location;
     }
+
     public String getContact() {
-        return this.taskContact;
+        return this.contact;
     }
-    public String getDesc() {
-        return this.taskDesc;
+
+    public String getDescription() {
+        return this.description;
     }
-    public String getDateTime() {
-        return this.taskDateTime;
+
+    public String getDate() {
+        return this.date;
     }
+
+    public String getTime() {
+        return this.time;
+    }
+
 }

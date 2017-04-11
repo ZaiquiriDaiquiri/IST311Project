@@ -44,8 +44,9 @@ public class NavView extends BorderPane {
                 private Button newTaskButton;
                 private GridPane taskListPane;
         private Tab contactTab;
-            private FlowPane contactPane;
+            private GridPane contactPane;
                 private Button newContactButton;
+                private GridPane contactListPane;
     
     NavView(NavModel model) {
         this.navModel = model;
@@ -79,23 +80,27 @@ public class NavView extends BorderPane {
                 taskPane.setPadding(new Insets(10, 10, 10, 10));
                     newTaskButton = new Button("New Task");
                     taskListPane = new GridPane();
-                    ScrollPane scroll = new ScrollPane();
-                    scroll.setContent(taskListPane);
+                    ScrollPane taskScroll = new ScrollPane();
+                    taskScroll.setContent(taskListPane);
                     taskListPane.setHgap(10);
                     taskListPane.setVgap(10);
                 taskPane.add(newTaskButton, 0, 0);
-                taskPane.add(scroll, 0, 1);
+                taskPane.add(taskScroll, 0, 1);
             taskTab.setContent(taskPane);
             taskTab.setClosable(false);
             //Contact Tab & Content
             contactTab = new Tab();
             contactTab.setText("Contacts");
-                contactPane = new FlowPane();
-                contactPane.setHgap(10);
-                contactPane.setVgap(10);
+                contactPane = new GridPane();
                 contactPane.setPadding(new Insets(10, 10, 10, 10));
                     newContactButton = new Button("New Contact");
-                contactPane.getChildren().add(newContactButton);
+                    contactListPane = new GridPane();
+                    ScrollPane contactScroll = new ScrollPane();
+                    contactScroll.setContent(contactListPane);
+                    contactListPane.setHgap(10);
+                    contactListPane.setVgap(10);
+                contactPane.add(newContactButton, 0, 0);
+                contactPane.add(contactScroll, 0, 1);
             contactTab.setContent(contactPane);
             contactTab.setClosable(false);
         //Add Tabs
@@ -109,6 +114,11 @@ public class NavView extends BorderPane {
     }
     
     //Get() Methods
+    
+    public GridPane getContactListPane() {
+        return contactListPane;
+    }
+
     public NewTaskView getNewTaskView() {
         return this.newTaskView;
     }
@@ -133,30 +143,10 @@ public class NavView extends BorderPane {
     public GridPane getTaskListPane() {
         return this.taskListPane;
     }
-    public FlowPane getContactPane() {
+    public GridPane getContactPane() {
         return this.contactPane;
     }
     public Button getNewContactButton() {
         return this.newContactButton;
-    }
-    
-    //ADJUST VARIABLES
-    public FlowPane createAndGetTaskTile(Task task) {
-        FlowPane taskTile = new FlowPane();
-        Label title = new Label();
-        Label datetime = new Label();
-        Label contact = new Label();
-        Label location = new Label();
-        Label priority = new Label();
-        Label desc = new Label();
-        
-        title.setText(task.getTitle());
-        datetime.setText(task.getDateTime());
-        contact.setText(task.getContact());
-        location.setText(task.getLocation());
-        priority.setText(task.getPriority());
-        desc.setText(task.getDesc());
-        taskTile.getChildren().addAll(title, datetime, contact, location, priority, desc);
-        return taskTile;
     }
 }

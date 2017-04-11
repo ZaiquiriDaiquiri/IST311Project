@@ -1,37 +1,46 @@
-
 package ist311project;
 
 public class TimeSensTask extends Task {
-    private String taskTitle;
-    private String taskPriority;
-    private String taskDateTime;
-    private String taskLocation;
-    private String taskContact;
-    private String taskDesc;
+
+    private String title;
+    private String priority;
+    private String location;
+    private String contact;
+    private String description;
+    private String date;
+    private String time;
     
-    TimeSensTask(String title, String priority, String datetime, String location, String contact, String desc) {
-        super(title, priority, location, contact, desc);
+    TimeSensTask() {
         
-        this.taskTitle = title;
-        this.taskPriority = priority;
-        this.taskDateTime = datetime;
-        this.taskLocation = location;
-        this.taskContact = contact;
-        this.taskDesc = desc;
     }
-    
+
+    TimeSensTask(String title, String priority, String location, String contact, String description, String date, String time) {
+        super(title, priority, location, contact, description, date, time);
+        this.title = title;
+        this.priority = priority;
+        this.location = location;
+        this.contact = contact;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+    }
+
     @Override
     public void printTask() {
-        System.out.println(this.taskTitle);
-        System.out.println(this.taskPriority);
-        System.out.println(this.taskDateTime);
-        System.out.println(this.taskLocation);
-        System.out.println(this.taskContact);
-        System.out.println(this.taskDesc);
+        System.out.print("Title: ");
+        System.out.println(this.title);
+        System.out.print("Priority: ");
+        System.out.println(this.priority);
+        System.out.print("Location: ");
+        System.out.println(this.location);
+        System.out.print("Contact: ");
+        System.out.println(this.contact);
+        System.out.print("Description: ");
+        System.out.println(this.description);
+        System.out.print("Date: ");
+        System.out.println(this.date);
+        System.out.print("Time: ");
+        System.out.println(this.time);
     }
-    
-    @Override
-    public String getDateTime() {
-        return this.taskDateTime;
-    }
+
 }

@@ -8,6 +8,7 @@ public class AuthModel {
 
     AuthModel() {
         userInfo = new HashMap<>();
+        userInfo.put("", "");
         userInfo.put("user1", "pass");
         userInfo.put("user2", "pass");
     }
