@@ -63,26 +63,37 @@ public class NavView extends BorderPane {
         //Toolbar
         leftToolBar = new HBox(loadButton, saveButton);
         rightToolBar = new HBox(logoutButton);
+        
         leftToolBar.setSpacing(10);
         HBox.setHgrow(leftToolBar, Priority.ALWAYS);
         HBox.setHgrow(rightToolBar, Priority.ALWAYS);
         leftToolBar.setAlignment(Pos.CENTER_LEFT);
         rightToolBar.setAlignment(Pos.CENTER_RIGHT);
         toolBar = new ToolBar(leftToolBar, rightToolBar);
+        toolBar.prefWidthProperty().bind(this.widthProperty());
         
         //TabPane
         tabPane = new TabPane();
-        tabPane.setTabMinWidth(330);
+        tabPane.prefWidthProperty().bind(this.widthProperty());
+        tabPane.prefHeightProperty().bind(this.heightProperty());
             //Task Tab & Content
             taskTab = new Tab();
             taskTab.setText("Tasks");
                 taskPane = new GridPane();
+                taskPane.prefWidthProperty().bind(tabPane.widthProperty());
+                taskPane.prefHeightProperty().bind(tabPane.heightProperty());
                 taskPane.setPadding(new Insets(10, 10, 10, 10));
                     newTaskButton = new Button("New Task");
+                    newTaskButton.prefWidthProperty().bind(taskPane.widthProperty());
                     taskListPane = new GridPane();
+                    taskListPane.prefWidthProperty().bind(taskPane.widthProperty());
+                taskListPane.prefHeightProperty().bind(taskPane.heightProperty());
                     ScrollPane taskScroll = new ScrollPane();
+                    taskScroll.prefWidthProperty().bind(taskListPane.widthProperty());
+                taskScroll.prefHeightProperty().bind(taskListPane.heightProperty());
                     taskScroll.setContent(taskListPane);
                     taskListPane.setHgap(10);
+                    taskPane.setVgap(10);
                     taskListPane.setVgap(10);
                 taskPane.add(newTaskButton, 0, 0);
                 taskPane.add(taskScroll, 0, 1);

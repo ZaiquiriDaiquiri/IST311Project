@@ -5,7 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.FlowPane;
 
-public class MainView extends FlowPane{
+public class MainView extends FlowPane {
     //Main MVC
     private MainModel mainModel;
     

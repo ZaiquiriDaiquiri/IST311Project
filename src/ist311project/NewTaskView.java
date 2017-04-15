@@ -1,5 +1,6 @@
 package ist311project;
 
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -220,7 +221,7 @@ public class NewTaskView extends Stage {
         this.contactComboBox.setValue("Choose Contact");
         this.descArea.setText("");
         this.timeSensCheckBox.setSelected(false);
-        this.dateField.setValue(null);
+        this.dateField.setValue(LocalDate.now());
         this.dateField.setDisable(true);
         this.hourSpinner.setDisable(true);
         this.minuteSpinner.setDisable(true);

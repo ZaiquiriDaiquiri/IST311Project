@@ -26,11 +26,15 @@ public class MainController {
         //Authorization MVC
         authModel = new AuthModel();
         authView = new AuthView(authModel);
+        authView.prefWidthProperty().bind(mainView.widthProperty());
+        authView.prefHeightProperty().bind(mainView.heightProperty());
         authController = new AuthController(authModel, authView);
         
         //Navigation MVC
         navModel = new NavModel();
         navView = new NavView(navModel);
+        navView.prefWidthProperty().bind(mainView.widthProperty());
+        navView.prefHeightProperty().bind(mainView.heightProperty());
         navController = new NavController(navModel, navView);
         
         //Shows AuthUI at launch

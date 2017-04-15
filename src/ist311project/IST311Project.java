@@ -17,9 +17,11 @@ public class IST311Project extends Application {
         
         //Stage > Scene > View(Pane) Setup
         Scene mainScene = new Scene(mainView, 700, 400);
+        mainView.prefWidthProperty().bind(mainScene.widthProperty());
+        mainView.prefHeightProperty().bind(mainScene.heightProperty());
         mainStage.setScene(mainScene);
         mainStage.show();
-        mainStage.setResizable(false);
+        mainStage.setResizable(true);
     }
     
     public static void main(String[] args) {
