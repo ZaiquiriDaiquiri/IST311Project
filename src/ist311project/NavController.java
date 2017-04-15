@@ -1,14 +1,9 @@
-
 package ist311project;
 
-import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -16,7 +11,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
-public class NavController{
+public class NavController {
 
     private NavModel navModel;
     private NavView navView;
@@ -24,6 +19,8 @@ public class NavController{
     NavController(NavModel model, NavView view) {
         this.navModel = model;
         this.navView = view;
+
+        
 
         //Task Creation Event Handlers
         //When 'Create Task' is pressed
@@ -96,7 +93,8 @@ public class NavController{
             for (int i = 0; i < contactArray.size(); i++) {
                 navView.getNewTaskView().getContactList().add(contactArray.get(i).getName());
             }
-        } else {}
+        } else {
+        }
     }
 
     public void showNewTaskView() {
@@ -208,7 +206,7 @@ public class NavController{
         Label phone = new Label(contact.getPhone());
         Label email = new Label(contact.getEmail());
         Label address = new Label(contact.getAddress());
-        
+
         newContactPane.getChildren().addAll(name, phone, email, address);
         newContactPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 

@@ -1,7 +1,12 @@
 
 package ist311project;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class MainController {
     //Main MVC
@@ -47,9 +52,63 @@ public class MainController {
             } else {}
         });
         
+        navView.getSaveButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                BufferedWriter bw = null;
+                FileWriter fw = null;
+
+                try {
+                    fw = new FileWriter(authModel.currentUser + "_tasks.txt");
+                    bw = new BufferedWriter(fw);
+                    bw.write(navModel.getTempTaskArray().toString());
+
+                    System.out.println("Done");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                        if (fw != null) {
+                            fw.close();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                
+                try {
+                    fw = new FileWriter(authModel.currentUser + "_contacts.txt");
+                    bw = new BufferedWriter(fw);
+                    bw.write(navModel.getTempContactArray().toString());
+
+                    System.out.println("Done");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (bw != null) {
+                            bw.close();
+                        }
+                        if (fw != null) {
+                            fw.close();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        
         //Action when 'Logout' is pressed
         navView.getLogoutButton().setOnAction((ActionEvent event) -> {
             switchToAuthView();
+            navController.clearContacts();
+            navController.clearTasks();
+            navModel.getTempTaskArray().clear();
+            navModel.getTempContactArray().clear();
         });
     }
     
@@ -57,6 +116,7 @@ public class MainController {
     private void switchToNavView() {
         mainView.getChildren().remove(authView);
         authView.getAuthenticateLabel().setText("");
+        authModel.currentUser = authView.getUsernameField().getText();
         authView.getUsernameField().setText("");
         authView.getPasswordField().setText("");
         mainView.getChildren().add(navView);
