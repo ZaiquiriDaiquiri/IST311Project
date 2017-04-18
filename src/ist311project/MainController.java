@@ -4,7 +4,6 @@ package ist311project;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

@@ -12,8 +12,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -44,16 +42,17 @@ public class NewTaskView extends Stage {
     private TextArea descArea;
 
     private CheckBox timeSensCheckBox;
-
-    private int initialHour;
+    
     private Label timeLabel;
-    private Spinner<Integer> hourSpinner;
-    private SpinnerValueFactory<Integer> hourFactory;
-
-    private int initialMinute;
     private Label divLabel;
-    private Spinner<Integer> minuteSpinner;;
-    private SpinnerValueFactory<Integer> minuteFactory;
+
+    private ObservableList<String> hourList;
+    private ObservableList<String> minuteList;
+    private ObservableList<String> amPmList;
+    
+    private ComboBox hourComboBox;
+    private ComboBox minuteComboBox;
+    private ComboBox amPmComboBox;
 
     private FlowPane timePane;
 
@@ -101,25 +100,24 @@ public class NewTaskView extends Stage {
         dateField = new DatePicker();
         
         timeLabel = new Label("Time:");
-        //timeField = new TextField();
-
-        initialHour = 12;
-        timeLabel = new Label("Time:");
-        hourSpinner = new Spinner<>();
-        hourFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(01, 12, initialHour);
-        hourSpinner.setValueFactory(hourFactory);
-        hourSpinner.setPrefWidth(55);
+        divLabel = new Label(" : ");
         
-        initialMinute = 00;
-        divLabel = new Label(":");
-        minuteSpinner = new Spinner<>();
-        minuteFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(00, 59, initialMinute);
-        minuteSpinner.setValueFactory(minuteFactory);
-        minuteSpinner.setPrefWidth(55);
+        hourList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+        minuteList = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 
+                                                       "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", 
+                                                       "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
+                                                       "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", 
+                                                       "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", 
+                                                       "50", "51", "52", "53", "54", "55", "56", "57", "58", "59");
+        amPmList = FXCollections.observableArrayList("AM", "PM");
+        
+        hourComboBox = new ComboBox(hourList);
+        minuteComboBox = new ComboBox(minuteList);
+        amPmComboBox = new ComboBox(amPmList);
         
         timePane = new FlowPane();
         timePane.setHgap(10);
-        timePane.getChildren().addAll(timeLabel, hourSpinner, divLabel, minuteSpinner);
+        timePane.getChildren().addAll(timeLabel, hourComboBox, divLabel, minuteComboBox, amPmComboBox);
 
         createButton = new Button("Create");
         cancelButton = new Button("Cancel");
@@ -198,13 +196,30 @@ public class NewTaskView extends Stage {
         return dateField;
     }
 
-    public Spinner<Integer> getHourSpinner() {
-        return hourSpinner;
+    public ObservableList<String> getHourList() {
+        return hourList;
     }
 
-    public Spinner<Integer> getMinuteSpinner() {
-        return minuteSpinner;
+    public ObservableList<String> getMinuteList() {
+        return minuteList;
     }
+
+    public ObservableList<String> getAmPmList() {
+        return amPmList;
+    }
+
+    public ComboBox getHourComboBox() {
+        return hourComboBox;
+    }
+
+    public ComboBox getMinuteComboBox() {
+        return minuteComboBox;
+    }
+
+    public ComboBox getAmPmComboBox() {
+        return amPmComboBox;
+    }
+
     
     public Button getCreateButton() {
         return createButton;
@@ -223,8 +238,12 @@ public class NewTaskView extends Stage {
         this.timeSensCheckBox.setSelected(false);
         this.dateField.setValue(LocalDate.now());
         this.dateField.setDisable(true);
-        this.hourSpinner.setDisable(true);
-        this.minuteSpinner.setDisable(true);
+        this.hourComboBox.setValue("12");
+        this.minuteComboBox.setValue("00");
+        this.amPmComboBox.setValue("AM");
+        this.hourComboBox.setDisable(true);
+        this.minuteComboBox.setDisable(true);
+        this.amPmComboBox.setDisable(true);
     }
 
 }

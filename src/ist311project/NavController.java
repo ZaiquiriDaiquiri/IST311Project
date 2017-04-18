@@ -20,8 +20,6 @@ public class NavController {
         this.navModel = model;
         this.navView = view;
 
-        
-
         //Task Creation Event Handlers
         //When 'Create Task' is pressed
         navView.getNewTaskButton().setOnAction(new EventHandler<ActionEvent>() {
@@ -105,8 +103,9 @@ public class NavController {
 
     public void disableDateTimeSwitch() {
         navView.getNewTaskView().getDateField().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
-        navView.getNewTaskView().getHourSpinner().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
-        navView.getNewTaskView().getMinuteSpinner().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
+        navView.getNewTaskView().getHourComboBox().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
+        navView.getNewTaskView().getMinuteComboBox().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
+        navView.getNewTaskView().getAmPmComboBox().setDisable(!navView.getNewTaskView().getTimeSensCheckBox().isSelected());
     }
 
     public void createTask(ArrayList<Task> taskArray) {
@@ -119,9 +118,10 @@ public class NavController {
         String contact = infoView.getContactComboBox().getValue().toString();
         String desc = infoView.getDescArea().getText();
         String date = infoView.getDateField().getValue().toString();
-        String hour = infoView.getHourSpinner().getValue().toString();
-        String minute = infoView.getMinuteSpinner().getValue().toString();
-        String time = hour + ":" + minute;
+        String hour = infoView.getHourComboBox().getValue().toString();
+        String minute = infoView.getMinuteComboBox().getValue().toString();
+        String amPm = infoView.getAmPmComboBox().getValue().toString();
+        String time = hour + ":" + minute + " " + amPm;
 
         if (infoView.getTimeSensCheckBox().isSelected()) {
             newTask = new TimeSensTask(title, priority, location, contact, desc, date, time);
@@ -139,23 +139,44 @@ public class NavController {
         newTaskPane.setPadding(new Insets(10, 10, 10, 10));
         newTaskPane.setPrefWidth(685);
 
-        Label title = new Label(task.getTitle());
-        Label priority = new Label(task.getPriority());
-        Label location = new Label(task.getLocation());
-        Label contact = new Label(task.getContact());
-        Label desc = new Label(task.getDescription());
-        Label date;
-        Label time;
+        StringBuilder taskString = new StringBuilder();
+
+        if (!task.getTitle().equals("")) {
+            String title = "Title: " + task.getTitle();
+            taskString.append(title);
+        } else {
+        }
+        String priority = "\nPriority: " + task.getPriority();
+        taskString.append(priority);
+        if (!task.getLocation().equals("")) {
+            String location = "\nLocation: " + task.getLocation();
+            taskString.append(location);
+        } else {
+        }
+        if (!task.getContact().equals("None") && !task.getContact().equals("Choose Contact")) {
+            String contact = "\nContact: " + task.getContact();
+            taskString.append(contact);
+        } else {
+        }
+        if (!task.getDescription().equals("")) {
+            String desc = "\nDescription: " + task.getDescription();
+            taskString.append(desc);
+        } else {
+        }
+        String date;
+        String time;
 
         if (task.getClass() == (new TimeSensTask()).getClass()) {
-            date = new Label(task.getDate());
-            time = new Label(task.getTime());
-            newTaskPane.getChildren().addAll(title, priority, location, contact, desc, date, time);
+            date = "\nDate: " + task.getDate();
+            taskString.append(date);
+            time = "\nTime: " + task.getTime();
+            taskString.append(time);
+            newTaskPane.getChildren().add(new Label(taskString.toString()));
         } else {
-            newTaskPane.getChildren().addAll(title, priority, location, contact, desc);
+            newTaskPane.getChildren().add(new Label(taskString.toString()));
         }
 
-        newTaskPane.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        newTaskPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
         return newTaskPane;
     }
@@ -202,12 +223,30 @@ public class NavController {
         newContactPane.setPadding(new Insets(10, 10, 10, 10));
         newContactPane.setPrefWidth(685);
 
-        Label name = new Label(contact.getName());
-        Label phone = new Label(contact.getPhone());
-        Label email = new Label(contact.getEmail());
-        Label address = new Label(contact.getAddress());
+        StringBuilder contactString = new StringBuilder();
 
-        newContactPane.getChildren().addAll(name, phone, email, address);
+        if (!contact.getName().equals("")) {
+            String name = "Name: " + contact.getName();
+            contactString.append(name);
+        } else {
+        }
+        if (!contact.getPhone().equals("")) {
+            String phone = "\nPhone: " + contact.getPhone();
+            contactString.append(phone);
+        } else {
+        }
+        if (!contact.getEmail().equals("")) {
+            String email = "\nEmail: " + contact.getEmail();
+            contactString.append(email);
+        } else {
+        }
+        if (!contact.getAddress().equals("")) {
+            String address = "\nAddress: " + contact.getAddress();
+            contactString.append(address);
+        } else {
+        }
+
+        newContactPane.getChildren().add(new Label(contactString.toString()));
         newContactPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 
         return newContactPane;
