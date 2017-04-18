@@ -58,7 +58,7 @@ public class MainController {
                 FileWriter fw = null;
 
                 try {
-                    fw = new FileWriter(authModel.currentUser + "_tasks.txt");
+                    fw = new FileWriter(authModel.getCurrentUser() + "_tasks.txt");
                     bw = new BufferedWriter(fw);
                     bw.write(navModel.getTempTaskArray().toString());
 
@@ -79,7 +79,7 @@ public class MainController {
                 }
                 
                 try {
-                    fw = new FileWriter(authModel.currentUser + "_contacts.txt");
+                    fw = new FileWriter(authModel.getCurrentUser() + "_contacts.txt");
                     bw = new BufferedWriter(fw);
                     bw.write(navModel.getTempContactArray().toString());
 
@@ -115,7 +115,7 @@ public class MainController {
     private void switchToNavView() {
         mainView.getChildren().remove(authView);
         authView.getAuthenticateLabel().setText("");
-        authModel.currentUser = authView.getUsernameField().getText();
+        authModel.setCurrentUser(authView.getUsernameField().getText());
         authView.getUsernameField().setText("");
         authView.getPasswordField().setText("");
         mainView.getChildren().add(navView);

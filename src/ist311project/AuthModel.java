@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class AuthModel {
     private HashMap<String, String> userInfo;
-    String currentUser;
+    private String currentUser;
 
     AuthModel() {
         userInfo = new HashMap<>();
@@ -15,5 +15,13 @@ public class AuthModel {
     
     protected HashMap<String, String> getUserInfo() {
         return this.userInfo;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+    
+    public void setCurrentUser(String currUser) {
+        this.currentUser = currUser;
     }
 }
