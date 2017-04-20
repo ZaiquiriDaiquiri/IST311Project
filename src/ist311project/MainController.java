@@ -51,6 +51,7 @@ public class MainController {
             } else {}
         });
         
+        //Action when 'Save' is pressed
         navView.getSaveButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -61,19 +62,17 @@ public class MainController {
                     fw = new FileWriter(authModel.getCurrentUser() + "_tasks.txt");
                     bw = new BufferedWriter(fw);
                     bw.write(navModel.getTempTaskArray().toString());
-
-                    System.out.println("Done");
-                } catch (IOException e) {
+                } catch(IOException e) {
                     e.printStackTrace();
                 } finally {
                     try {
-                        if (bw != null) {
+                        if(bw != null) {
                             bw.close();
                         }
-                        if (fw != null) {
+                        if(fw != null) {
                             fw.close();
                         }
-                    } catch (IOException ex) {
+                    } catch(IOException ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -82,19 +81,17 @@ public class MainController {
                     fw = new FileWriter(authModel.getCurrentUser() + "_contacts.txt");
                     bw = new BufferedWriter(fw);
                     bw.write(navModel.getTempContactArray().toString());
-
-                    System.out.println("Done");
-                } catch (IOException e) {
+                } catch(IOException e) {
                     e.printStackTrace();
                 } finally {
                     try {
-                        if (bw != null) {
+                        if(bw != null) {
                             bw.close();
                         }
-                        if (fw != null) {
+                        if(fw != null) {
                             fw.close();
                         }
-                    } catch (IOException ex) {
+                    } catch(IOException ex) {
                         ex.printStackTrace();
                     }
                 }

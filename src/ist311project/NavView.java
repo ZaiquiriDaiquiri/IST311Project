@@ -13,15 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
-/*
-    TODO
-    -Work on figuring out TabWidth, BorderPane's prefSize
-
-    FUTURE TODO
-    -Add refresh button OR automatically refresh when something new is created (maybe on create click?)
-    -Turn tabs into classes
-*/
-
 public class NavView extends BorderPane {
     private NavModel navModel;
     

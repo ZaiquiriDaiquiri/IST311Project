@@ -1,4 +1,3 @@
-
 package ist311project;
 
 import javafx.application.Application;

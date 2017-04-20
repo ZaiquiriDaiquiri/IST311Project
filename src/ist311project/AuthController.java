@@ -2,6 +2,7 @@ package ist311project;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 
 public class AuthController {
     //Authorization MVC
@@ -13,6 +14,8 @@ public class AuthController {
         this.authModel = model;
         this.authView = view;
         
+        //USER CREATION
+        //When 'New User' is pressed
         authView.getNewUserButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -20,16 +23,17 @@ public class AuthController {
             }
         });
         
+        //When 'Create' is pressed
         authView.getNewUserView().getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
-                if(isValidCreateUser(authView.getNewUserView().getUsernameField().getText(), authView.getNewUserView().getPasswordField().getText(), authView.getNewUserView().getConfirmField().getText())) {
+                if(isValidCreateUser()) {
                     closeNewUserView();
                 } else {}
             }
         });
         
+        //When 'Cancel' is pressed
         authView.getNewUserView().getCancelButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -67,19 +71,25 @@ public class AuthController {
         authView.getAuthenticateLabel().setText("Invalid Credentials!");
     }
     
-    public boolean isValidCreateUser(String username, String password, String confirmPassword) {
+    //Validates new user fields and creates an account if they are valid
+    public boolean isValidCreateUser() {
+        Label errorLabel = getNewErrorLabel();
+        String username = getNewUsername();
+        String password = getNewPassword();
+        String confirmPassword = getNewConfirm();
+
         if(username.equals("")) {
-            authView.getNewUserView().getNewUserLabel().setText("Please enter a username!");
+            errorLabel.setText("Please enter a username!");
             return false;
         } else if(authModel.getUserInfo().containsKey(username)) {
-            authView.getNewUserView().getNewUserLabel().setText("Username already taken!");
+            errorLabel.setText("Username already taken!");
             return false;
         } else {
             if(password.equals("")) {
-                authView.getNewUserView().getNewUserLabel().setText("Please enter a password!");
+                errorLabel.setText("Please enter a password!");
                 return false;
             } else if(confirmPassword.equals("") || !confirmPassword.equals(password)) {
-                authView.getNewUserView().getNewUserLabel().setText("Passwords do not match!");
+                errorLabel.setText("Passwords do not match!");
                 return false;
             } else {
                 authModel.getUserInfo().put(username, password);
@@ -95,6 +105,22 @@ public class AuthController {
     
     private String getInputPassword() {
         return authView.getPasswordField().getText();
+    }
+
+    private Label getNewErrorLabel() {
+        return authView.getNewUserView().getNewUserLabel();
+    }
+
+    private String getNewUsername() {
+        return authView.getNewUserView().getUsernameField().getText();
+    }
+
+    private String getNewPassword() {
+        return authView.getNewUserView().getPasswordField().getText();
+    }
+
+    private String getNewConfirm() {
+        return authView.getNewUserView().getConfirmField().getText();
     }
     
     public void showNewUserView() {

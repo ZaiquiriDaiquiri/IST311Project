@@ -1,4 +1,3 @@
-
 package ist311project;
 
 import javafx.geometry.HPos;
@@ -38,15 +37,19 @@ public class AuthView extends GridPane {
         
         //Control Initialization
         authenticateLabel = new Label("");
-            authenticateLabel.setTextFill(Color.RED);
+        authenticateLabel.setTextFill(Color.RED);
+
         newUserButton = new Button("New User");
         newUserButton.setPrefWidth(150);
+
         usernameLabel = new Label("Username:");
         usernameField = new TextField();
+
         passwordLabel = new Label("Password:");
         passwordField = new PasswordField();
+
         authenticateButton = new Button("Authenticate");
-            authenticateButton.setPrefWidth(150);
+        authenticateButton.setPrefWidth(150);
         
         //Control Placement
         //Row 1
