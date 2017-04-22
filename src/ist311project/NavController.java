@@ -246,7 +246,7 @@ public class NavController {
             contactString.append(address);
         } else {}
         
-        String contactType = contact.getContactType() + " Contact";
+        String contactType = "\n" + contact.getContactType() + " Contact";
         contactString.append(contactType);
 
         newContactPane.getChildren().add(new Label(contactString.toString()));

@@ -1,6 +1,8 @@
 package ist311project;
 
-public abstract class Task {
+import java.io.Serializable;
+
+public abstract class Task implements Serializable{
 
     private String title;
     private String priority;

@@ -57,58 +57,103 @@ public class MainController {
             }
         });
 
-//        //Action when 'Save' is pressed
-//        navView.getSaveButton().setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//
-//                try {
-//                    FileOutputStream fileOut = new FileOutputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
-//                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-//                    
-//                    out.writeObject(navModel.getTempTaskArray());
-//                    
-//                    out.close();
-//                    fileOut.close();
-//                } catch (IOException i)
-//                {
-//                    i.printStackTrace();
-//                }
-//
-//            }
-//        });
-//
-//        //Action when 'Load' is pressed
-//        navView.getLoadButton().setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                
-//                try
-//                {
-//                    FileInputStream fileIn = new FileInputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
-//                    ObjectInputStream in = new ObjectInputStream(fileIn);
-//                    
-//                    navModel.getTempTaskArray().clear();
-//                    
-//                    navModel.getTempTaskArray().add((Task)in.readObject());
-//                    //navModel.getTempTaskArray().add((Task)in.readObject());
-//                    in.close();.
-//                    fileIn.close();
-//                } catch (IOException i)
-//                {
-//                    i.printStackTrace();
-//                    return;
-//                } catch (ClassNotFoundException c)
-//                {
-//                    System.out.println("Error");
-//                    c.printStackTrace();
-//                    return;
-//                }
-//
-//                navController.clearTasks();
-//                navController.displayTasks(navModel.getTempTaskArray());
-//            }
-//        });
+        //Action when 'Save' is pressed
+        navView.getSaveButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                try {
+                    FileOutputStream fileOut = new FileOutputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    
+                    out.writeObject(navModel.getTempTaskArray());
+                    
+                    out.close();
+                    fileOut.close();
+                } catch (IOException i)
+                {
+                    i.printStackTrace();
+                }
+                
+                try {
+                    FileOutputStream fileOut = new FileOutputStream("src/ist311project/" + authModel.getCurrentUser() + "_contacts.ser");
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    
+                    out.writeObject(navModel.getTempContactArray());
+                    
+                    out.close();
+                    fileOut.close();
+                } catch (IOException i)
+                {
+                    i.printStackTrace();
+                }
+
+            }
+        });
+
+        //Action when 'Load' is pressed
+        navView.getLoadButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                
+                try
+                {
+                    FileInputStream fileIn = new FileInputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    
+                    navModel.getTempTaskArray().clear();
+                    
+                    ArrayList<Task> newTaskArray = (ArrayList<Task>)in.readObject();
+                    
+                    
+                    navModel.getTempTaskArray().addAll(newTaskArray);
+                    
+                    
+                    in.close();
+                    fileIn.close();
+                } catch (IOException i)
+                {
+                    i.printStackTrace();
+                    return;
+                } catch (ClassNotFoundException c)
+                {
+                    System.out.println("Error");
+                    c.printStackTrace();
+                    return;
+                }
+                
+                try
+                {
+                    FileInputStream fileIn = new FileInputStream("src/ist311project/" + authModel.getCurrentUser() + "_contacts.ser");
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    
+                    navModel.getTempContactArray().clear();
+                    
+                    ArrayList<Contact> newContactArray = (ArrayList<Contact>)in.readObject();
+                    
+                    
+                    navModel.getTempContactArray().addAll(newContactArray);
+                    
+                    
+                    in.close();
+                    fileIn.close();
+                } catch (IOException i)
+                {
+                    i.printStackTrace();
+                    return;
+                } catch (ClassNotFoundException c)
+                {
+                    System.out.println("Error");
+                    c.printStackTrace();
+                    return;
+                }
+
+                navController.clearTasks();
+                navController.displayTasks(navModel.getTempTaskArray());
+                navController.clearContacts();
+                navController.displayContacts(navModel.getTempContactArray());
+            }
+        });
 
         //Action when 'Logout' is pressed
         navView.getLogoutButton().setOnAction((ActionEvent event) -> {
