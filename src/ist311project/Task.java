@@ -32,18 +32,6 @@ public abstract class Task {
         this.time = time;
     }
 
-    public void printTask() {
-        System.out.print("Title: ");
-        System.out.println(this.title);
-        System.out.print("Priority: ");
-        System.out.println(this.priority);
-        System.out.print("Location: ");
-        System.out.println(this.location);
-        System.out.print("Contact: ");
-        System.out.println(this.contact);
-        System.out.print("Description: ");
-        System.out.println(this.description);
-    }
 
     public String getTitle() {
         return this.title;

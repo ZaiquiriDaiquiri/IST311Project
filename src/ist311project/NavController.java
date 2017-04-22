@@ -211,10 +211,10 @@ public class NavController {
         String phone = infoView.getPhoneField().getText();
         String email = infoView.getEmailField().getText();
         String address = infoView.getAddressField().getText();
+        String contactType = infoView.getContactTypeBox().getValue().toString();
 
-        newContact = new Contact(name, phone, email, address);
+        newContact = new Contact(name, phone, email, address, contactType);
         contactArray.add(newContact);
-        newContact.printContact();
     }
 
     public FlowPane contactToPane(Contact contact) {
@@ -245,6 +245,9 @@ public class NavController {
             String address = "\nAddress: " + contact.getAddress();
             contactString.append(address);
         } else {}
+        
+        String contactType = contact.getContactType() + " Contact";
+        contactString.append(contactType);
 
         newContactPane.getChildren().add(new Label(contactString.toString()));
         newContactPane.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));

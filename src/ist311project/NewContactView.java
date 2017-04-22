@@ -1,11 +1,14 @@
 
 package ist311project;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -28,6 +31,10 @@ public class NewContactView extends Stage {
             
     private Label addressLabel;
     private TextField addressField;
+    
+    private Label contactTypeLabel;
+    private ObservableList<String> contactTypeList;
+    private ComboBox contactTypeBox;
     
     private Button createButton;
     private Button cancelButton;
@@ -57,10 +64,16 @@ public class NewContactView extends Stage {
         addressLabel = new Label("Address:");
         addressField = new TextField();
         
+        contactTypeLabel = new Label("Contact Type:");
+        contactTypeList = FXCollections.observableArrayList("Personal", "Professional");
+        contactTypeBox = new ComboBox(contactTypeList);
+        
         createButton = new Button("Create");
         cancelButton = new Button("Cancel");
         createButton.setPrefWidth(100);
         cancelButton.setPrefWidth(100);
+        
+        this.resetFields();
         
         //Control Alignment
         GridPane.setHalignment(createButton, HPos.RIGHT);
@@ -80,8 +93,11 @@ public class NewContactView extends Stage {
         newContactPane.add(addressLabel, 0, 3);
         newContactPane.add(addressField, 1, 3);
         //Row 5
-        newContactPane.add(createButton, 0, 4);
-        newContactPane.add(cancelButton, 1, 4);
+        newContactPane.add(contactTypeLabel, 0, 4);
+        newContactPane.add(contactTypeBox, 1, 4);
+        //Row 6
+        newContactPane.add(createButton, 0, 5);
+        newContactPane.add(cancelButton, 1, 5);
     }
     
     //Get() Methods
@@ -110,11 +126,16 @@ public class NewContactView extends Stage {
         return this.cancelButton;
     }
     
+    public ComboBox getContactTypeBox() {
+        return this.contactTypeBox;
+    }
+    
     public void resetFields() {
         this.nameField.setText("");
         this.phoneField.setText("");
         this.emailField.setText("");
         this.addressField.setText("");
+        this.contactTypeBox.setValue("Personal");
     }
 
 }

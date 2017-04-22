@@ -6,23 +6,18 @@ public class Contact {
     private String phone;
     private String email;
     private String address;
+    private String contactType;
 
-    Contact(String name, String phone, String email, String address) {
+    Contact() {
+        
+    }
+    
+    Contact(String name, String phone, String email, String address, String contactType) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-    }
-
-    public void printContact() {
-        System.out.print("Name: ");
-        System.out.println(this.name);
-        System.out.print("Phone: ");
-        System.out.println(this.phone);
-        System.out.print("Email: ");
-        System.out.println(this.email);
-        System.out.print("Address: ");
-        System.out.println(this.address);
+        this.contactType = contactType;
     }
 
     public String getName() {
@@ -39,6 +34,10 @@ public class Contact {
 
     public String getAddress() {
         return this.address;
+    }
+
+    public String getContactType() {
+        return contactType;
     }
 
 }
