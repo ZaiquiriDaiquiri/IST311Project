@@ -1,4 +1,3 @@
-
 package ist311project;
 
 import javafx.collections.FXCollections;
@@ -15,66 +14,66 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class NewContactView extends Stage {
-    
+
     private Scene newContactScene;
     private GridPane newContactPane;
-    
+
     //Controls
     private Label nameLabel;
     private TextField nameField;
 
     private Label phoneLabel;
     private TextField phoneField;
-    
+
     private Label emailLabel;
     private TextField emailField;
-            
+
     private Label addressLabel;
     private TextField addressField;
-    
+
     private Label contactTypeLabel;
     private ObservableList<String> contactTypeList;
     private ComboBox contactTypeBox;
-    
+
     private Button createButton;
     private Button cancelButton;
-    
+
     NewContactView() {
-        
+
         //Stage > Scene > Pane Setup
         this.setTitle("Create New Contact");
-                newContactPane = new GridPane();
-                newContactPane.setAlignment(Pos.CENTER);
-                newContactPane.setHgap(10);
-                newContactPane.setVgap(10);
-                newContactPane.setPadding(new Insets(10, 10, 10, 10));
-            newContactScene = new Scene(newContactPane);
+        newContactPane = new GridPane();
+        newContactPane.setAlignment(Pos.CENTER);
+        newContactPane.setHgap(10);
+        newContactPane.setVgap(10);
+        newContactPane.setPadding(new Insets(10, 10, 10, 10));
+        newContactScene = new Scene(newContactPane);
         this.setScene(newContactScene);
-        
+
         //Pane Controls
         nameLabel = new Label("Name:");
         nameField = new TextField();
-        
+
         phoneLabel = new Label("Phone:");
         phoneField = new TextField();
-        
+
         emailLabel = new Label("Email:");
         emailField = new TextField();
-        
+
         addressLabel = new Label("Address:");
         addressField = new TextField();
-        
+
         contactTypeLabel = new Label("Contact Type:");
         contactTypeList = FXCollections.observableArrayList("Personal", "Professional");
         contactTypeBox = new ComboBox(contactTypeList);
-        
+
         createButton = new Button("Create");
         cancelButton = new Button("Cancel");
         createButton.setPrefWidth(100);
         cancelButton.setPrefWidth(100);
-        
+
         this.resetFields();
-        
+
         //Control Alignment
         GridPane.setHalignment(createButton, HPos.RIGHT);
         GridPane.setHalignment(cancelButton, HPos.LEFT);
@@ -99,9 +98,8 @@ public class NewContactView extends Stage {
         newContactPane.add(createButton, 0, 5);
         newContactPane.add(cancelButton, 1, 5);
     }
-    
-    //Get() Methods
 
+    //Get() Methods
     public TextField getNameField() {
         return this.nameField;
     }
@@ -125,11 +123,11 @@ public class NewContactView extends Stage {
     public Button getCancelButton() {
         return this.cancelButton;
     }
-    
+
     public ComboBox getContactTypeBox() {
         return this.contactTypeBox;
     }
-    
+
     public void resetFields() {
         this.nameField.setText("");
         this.phoneField.setText("");

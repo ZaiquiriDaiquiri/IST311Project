@@ -9,9 +9,9 @@ public class ToDoTask extends Task {
     private String description;
 
     ToDoTask() {
-        
+
     }
-    
+
     ToDoTask(String title, String priority, String location, String contact, String description) {
         super(title, priority, location, contact, description);
         this.title = title;

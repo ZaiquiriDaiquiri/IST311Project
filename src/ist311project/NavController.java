@@ -12,6 +12,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 
 public class NavController {
+
     private NavModel navModel;
     private NavView navView;
 
@@ -90,7 +91,8 @@ public class NavController {
             for (int i = 0; i < contactArray.size(); i++) {
                 navView.getNewTaskView().getContactList().add(contactArray.get(i).getName());
             }
-        } else {}
+        } else {
+        }
     }
 
     public void showNewTaskView() {
@@ -142,7 +144,8 @@ public class NavController {
         if (!task.getTitle().equals("")) {
             String title = "Title: " + task.getTitle();
             taskString.append(title);
-        } else {}
+        } else {
+        }
 
         String priority = "\nPriority: " + task.getPriority();
         taskString.append(priority);
@@ -150,17 +153,20 @@ public class NavController {
         if (!task.getLocation().equals("")) {
             String location = "\nLocation: " + task.getLocation();
             taskString.append(location);
-        } else {}
+        } else {
+        }
 
         if (!task.getContact().equals("None") && !task.getContact().equals("Choose Contact")) {
             String contact = "\nContact: " + task.getContact();
             taskString.append(contact);
-        } else {}
+        } else {
+        }
 
         if (!task.getDescription().equals("")) {
             String desc = "\nDescription: " + task.getDescription();
             taskString.append(desc);
-        } else {}
+        } else {
+        }
 
         String date;
         String time;
@@ -229,23 +235,27 @@ public class NavController {
         if (!contact.getName().equals("")) {
             String name = "Name: " + contact.getName();
             contactString.append(name);
-        } else {}
+        } else {
+        }
 
         if (!contact.getPhone().equals("")) {
             String phone = "\nPhone: " + contact.getPhone();
             contactString.append(phone);
-        } else {}
+        } else {
+        }
 
         if (!contact.getEmail().equals("")) {
             String email = "\nEmail: " + contact.getEmail();
             contactString.append(email);
-        } else {}
+        } else {
+        }
 
         if (!contact.getAddress().equals("")) {
             String address = "\nAddress: " + contact.getAddress();
             contactString.append(address);
-        } else {}
-        
+        } else {
+        }
+
         String contactType = "\n" + contact.getContactType() + " Contact";
         contactString.append(contactType);
 

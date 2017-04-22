@@ -9,9 +9,9 @@ public class TimeSensTask extends Task {
     private String description;
     private String date;
     private String time;
-    
+
     TimeSensTask() {
-        
+
     }
 
     TimeSensTask(String title, String priority, String location, String contact, String description, String date, String time) {

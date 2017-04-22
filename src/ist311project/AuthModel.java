@@ -3,6 +3,7 @@ package ist311project;
 import java.util.HashMap;
 
 public class AuthModel {
+
     private HashMap<String, String> userInfo;
     private String currentUser;
 
@@ -11,7 +12,7 @@ public class AuthModel {
         userInfo.put("user1", "pass");
         userInfo.put("user2", "pass");
     }
-    
+
     protected HashMap<String, String> getUserInfo() {
         return this.userInfo;
     }
@@ -19,7 +20,7 @@ public class AuthModel {
     public String getCurrentUser() {
         return currentUser;
     }
-    
+
     public void setCurrentUser(String currUser) {
         this.currentUser = currUser;
     }

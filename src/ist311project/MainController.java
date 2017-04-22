@@ -1,9 +1,7 @@
 package ist311project;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,26 +63,24 @@ public class MainController {
                 try {
                     FileOutputStream fileOut = new FileOutputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    
+
                     out.writeObject(navModel.getTempTaskArray());
-                    
+
                     out.close();
                     fileOut.close();
-                } catch (IOException i)
-                {
+                } catch (IOException i) {
                     i.printStackTrace();
                 }
-                
+
                 try {
                     FileOutputStream fileOut = new FileOutputStream("src/ist311project/" + authModel.getCurrentUser() + "_contacts.ser");
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    
+
                     out.writeObject(navModel.getTempContactArray());
-                    
+
                     out.close();
                     fileOut.close();
-                } catch (IOException i)
-                {
+                } catch (IOException i) {
                     i.printStackTrace();
                 }
 
@@ -95,54 +91,44 @@ public class MainController {
         navView.getLoadButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
-                try
-                {
+
+                try {
                     FileInputStream fileIn = new FileInputStream("src/ist311project/" + authModel.getCurrentUser() + "_tasks.ser");
                     ObjectInputStream in = new ObjectInputStream(fileIn);
-                    
+
                     navModel.getTempTaskArray().clear();
-                    
-                    ArrayList<Task> newTaskArray = (ArrayList<Task>)in.readObject();
-                    
-                    
+
+                    ArrayList<Task> newTaskArray = (ArrayList<Task>) in.readObject();
+
                     navModel.getTempTaskArray().addAll(newTaskArray);
-                    
-                    
+
                     in.close();
                     fileIn.close();
-                } catch (IOException i)
-                {
+                } catch (IOException i) {
                     i.printStackTrace();
                     return;
-                } catch (ClassNotFoundException c)
-                {
+                } catch (ClassNotFoundException c) {
                     System.out.println("Error");
                     c.printStackTrace();
                     return;
                 }
-                
-                try
-                {
+
+                try {
                     FileInputStream fileIn = new FileInputStream("src/ist311project/" + authModel.getCurrentUser() + "_contacts.ser");
                     ObjectInputStream in = new ObjectInputStream(fileIn);
-                    
+
                     navModel.getTempContactArray().clear();
-                    
-                    ArrayList<Contact> newContactArray = (ArrayList<Contact>)in.readObject();
-                    
-                    
+
+                    ArrayList<Contact> newContactArray = (ArrayList<Contact>) in.readObject();
+
                     navModel.getTempContactArray().addAll(newContactArray);
-                    
-                    
+
                     in.close();
                     fileIn.close();
-                } catch (IOException i)
-                {
+                } catch (IOException i) {
                     i.printStackTrace();
                     return;
-                } catch (ClassNotFoundException c)
-                {
+                } catch (ClassNotFoundException c) {
                     System.out.println("Error");
                     c.printStackTrace();
                     return;

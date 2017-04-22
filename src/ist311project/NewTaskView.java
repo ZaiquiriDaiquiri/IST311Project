@@ -42,14 +42,14 @@ public class NewTaskView extends Stage {
     private TextArea descArea;
 
     private CheckBox timeSensCheckBox;
-    
+
     private Label timeLabel;
     private Label divLabel;
 
     private ObservableList<String> hourList;
     private ObservableList<String> minuteList;
     private ObservableList<String> amPmList;
-    
+
     private ComboBox hourComboBox;
     private ComboBox minuteComboBox;
     private ComboBox amPmComboBox;
@@ -98,23 +98,23 @@ public class NewTaskView extends Stage {
 
         dateLabel = new Label("Date:");
         dateField = new DatePicker();
-        
+
         timeLabel = new Label("Time:");
         divLabel = new Label(" : ");
-        
+
         hourList = FXCollections.observableArrayList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-        minuteList = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", 
-                                                       "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", 
-                                                       "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", 
-                                                       "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", 
-                                                       "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", 
-                                                       "50", "51", "52", "53", "54", "55", "56", "57", "58", "59");
+        minuteList = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09",
+                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19",
+                "20", "21", "22", "23", "24", "25", "26", "27", "28", "29",
+                "30", "31", "32", "33", "34", "35", "36", "37", "38", "39",
+                "40", "41", "42", "43", "44", "45", "46", "47", "48", "49",
+                "50", "51", "52", "53", "54", "55", "56", "57", "58", "59");
         amPmList = FXCollections.observableArrayList("AM", "PM");
-        
+
         hourComboBox = new ComboBox(hourList);
         minuteComboBox = new ComboBox(minuteList);
         amPmComboBox = new ComboBox(amPmList);
-        
+
         timePane = new FlowPane();
         timePane.setHgap(10);
         timePane.getChildren().addAll(timeLabel, hourComboBox, divLabel, minuteComboBox, amPmComboBox);
@@ -123,7 +123,7 @@ public class NewTaskView extends Stage {
         cancelButton = new Button("Cancel");
         createButton.setPrefWidth(100);
         cancelButton.setPrefWidth(100);
-        
+
         resetFields();
 
         //Control Alignment
@@ -131,19 +131,18 @@ public class NewTaskView extends Stage {
         GridPane.setHalignment(cancelButton, HPos.LEFT);
 
         //Control Placement
-        
         newTaskPane.add(titleLabel, 0, 0);
         newTaskPane.add(titleField, 1, 0);
 
         newTaskPane.add(priorityLabel, 0, 1);
         newTaskPane.add(priorityComboBox, 1, 1);
-        
+
         newTaskPane.add(locationLabel, 0, 2);
         newTaskPane.add(locationField, 1, 2);
 
         newTaskPane.add(contactLabel, 0, 3);
         newTaskPane.add(contactComboBox, 1, 3);
-        
+
         newTaskPane.add(descLabel, 0, 4);
         newTaskPane.add(descArea, 1, 4);
 
@@ -154,7 +153,7 @@ public class NewTaskView extends Stage {
 
         newTaskPane.add(timeLabel, 0, 7);
         newTaskPane.add(timePane, 1, 7);
-        
+
         newTaskPane.add(createButton, 0, 8);
         newTaskPane.add(cancelButton, 1, 8);
     }
@@ -191,7 +190,7 @@ public class NewTaskView extends Stage {
     public CheckBox getTimeSensCheckBox() {
         return timeSensCheckBox;
     }
-    
+
     public DatePicker getDateField() {
         return dateField;
     }
@@ -220,7 +219,6 @@ public class NewTaskView extends Stage {
         return amPmComboBox;
     }
 
-    
     public Button getCreateButton() {
         return createButton;
     }
@@ -228,7 +226,7 @@ public class NewTaskView extends Stage {
     public Button getCancelButton() {
         return cancelButton;
     }
-    
+
     public void resetFields() {
         this.titleField.setText("");
         this.priorityComboBox.setValue("Normal");

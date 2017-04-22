@@ -2,7 +2,7 @@ package ist311project;
 
 import java.io.Serializable;
 
-public abstract class Task implements Serializable{
+public abstract class Task implements Serializable {
 
     private String title;
     private String priority;
@@ -33,7 +33,6 @@ public abstract class Task implements Serializable{
         this.date = date;
         this.time = time;
     }
-
 
     public String getTitle() {
         return this.title;
