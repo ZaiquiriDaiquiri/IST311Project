@@ -1,5 +1,11 @@
 package ist311project;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -14,6 +20,8 @@ public class AuthController {
         this.authModel = model;
         this.authView = view;
         
+        loadAccountFile();
+        
         //USER CREATION
         //When 'New User' is pressed
         authView.getNewUserButton().setOnAction(new EventHandler<ActionEvent>() {
@@ -27,7 +35,9 @@ public class AuthController {
         authView.getNewUserView().getCreateButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(isValidCreateUser()) {
+                if(isValid()) {
+                    createUser();
+                    updateAccountFile();
                     closeNewUserView();
                 } else {}
             }
@@ -72,7 +82,7 @@ public class AuthController {
     }
     
     //Validates new user fields and creates an account if they are valid
-    public boolean isValidCreateUser() {
+    public boolean isValid() {
         Label errorLabel = getNewErrorLabel();
         String username = getNewUsername();
         String password = getNewPassword();
@@ -92,10 +102,16 @@ public class AuthController {
                 errorLabel.setText("Passwords do not match!");
                 return false;
             } else {
-                authModel.getUserInfo().put(username, password);
                 return true;
             }
         }
+    }
+    
+    private void createUser() {
+        String username = getNewUsername();
+        String password = getNewPassword();
+        
+        authModel.getUserInfo().put(username, password);
     }
     
     //Get() Methods
@@ -130,5 +146,76 @@ public class AuthController {
     
     public void closeNewUserView() {
         authView.getNewUserView().close();
+    }
+    
+    public void loadAccountFile() {
+        
+        authModel.getUserInfo().clear();
+        
+        final String ACCOUNTFILENAME = "src/ist311project/user_accounts.txt";
+        
+        File file = new File(ACCOUNTFILENAME);
+        
+        try {
+            if (!file.exists()) {
+                System.out.println("file does not exist");
+            }
+            
+            FileReader inputFile = new FileReader(file);
+            BufferedReader bufferReader = new BufferedReader(inputFile);
+            
+            String line;
+            
+            while ((line = bufferReader.readLine()) != null) {
+                String[] split = line.split(",");
+                authModel.getUserInfo().put(split[0], split[1]);
+            }
+            
+            bufferReader.close();
+            inputFile.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error loading user accounts - " + e.getMessage());
+        }
+    }
+    
+    private void updateAccountFile() {
+        final String ACCOUNTFILENAME = "src/ist311project/user_accounts.txt";
+        
+        String username = getNewUsername();
+        String password = getNewPassword();
+        
+        String accountString = "\n" + username + "," + password;
+        
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        
+        try {
+            File accountFile = new File(ACCOUNTFILENAME);
+            
+            if (!accountFile.exists()) {
+                accountFile.createNewFile();
+            }
+            
+            fw = new FileWriter(accountFile.getAbsoluteFile(), true);
+            bw = new BufferedWriter(fw);
+
+            bw.write(accountString);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                
+                if (bw != null)
+                    bw.close();
+                
+                if (fw != null)
+                    fw.close();
+                
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }
