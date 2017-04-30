@@ -194,9 +194,49 @@ public class NavController {
 
     public void displayTasks(ArrayList<Task> taskArray) {
         clearTasks();
+        ArrayList<Task> taskArrayNull = new ArrayList();
+        ArrayList<Task> taskArrayDate = new ArrayList();
 
         for (int i = 0; i < taskArray.size(); i++) {
-            navView.getTaskListPane().add(taskToPane(taskArray.get(i)), 0, i);
+            if (taskArray.get(i).getDate() == null) {
+                taskArrayNull.add(taskArray.get(i));
+            } else {
+                int taskArrayYear = Integer.valueOf(taskArray.get(i).getDate().substring(0, 4));
+                int taskArrayMonth = Integer.valueOf(taskArray.get(i).getDate().substring(5, 7));
+                int taskArrayDay = Integer.valueOf(taskArray.get(i).getDate().substring(8, 10));
+                if (taskArrayDate.size() == 0) {
+                    taskArrayDate.add(taskArray.get(i));
+                }
+                for (int j = 0; j < taskArrayDate.size(); j++) {
+                    int taskArrayDateYear = Integer.valueOf(taskArrayDate.get(j).getDate().substring(0, 4));
+                    int taskArrayDateMonth = Integer.valueOf(taskArrayDate.get(j).getDate().substring(5, 7));
+                    int taskArrayDateDay = Integer.valueOf(taskArrayDate.get(j).getDate().substring(8, 10));
+                    if (taskArrayDateYear <= taskArrayYear) {
+                        if (taskArrayDateYear < taskArrayYear) {
+                            taskArrayDate.add(j, taskArray.get(i));
+                            break;
+                        } else {
+                            if (taskArrayDateMonth <= taskArrayMonth) {
+                                if (taskArrayDateYear < taskArrayYear) {
+                                    taskArrayDate.add(j, taskArray.get(i));
+                                    break;
+                                } else {
+                                    if (taskArrayDateDay <= taskArrayDay) {
+                                        taskArrayDate.add(j, taskArray.get(i));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < taskArrayDate.size(); i++) {
+            navView.getTaskListPane().add(taskToPane(taskArrayDate.get(i)), 0, i);
+        }
+        for (int i = 0; i < taskArrayNull.size(); i++) {
+            navView.getTaskListPane().add(taskToPane(taskArrayNull.get(i)), 0, i);
         }
     }
 
